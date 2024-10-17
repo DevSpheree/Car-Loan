@@ -3,6 +3,9 @@
 
 La administración de los vehículos de la universidad requiere un control riguroso para asegurar su disponibilidad y buen uso. Un sistema de gestión de préstamos nativo nube permitirá organizar y monitorear las solicitudes y devoluciones de vehículos, asegurando una utilización eficiente y responsable de estos recursos. La nube proporcionará una plataforma centralizada y segura para el manejo de datos.
 
+## ¿Qué es la gestión de préstamos de vehiculos?
+Argumentar 
+
 ## Mapa de Capacidades
 - Administrador: El administrador tiene control total sobre la creación, eliminación y actualización de usuarios, vehículos, y la gestión de solicitudes de préstamo y devoluciones. Actúa como el principal responsable de asegurar que todos los procesos funcionen correctamente, incluyendo la aprobación o rechazo de solicitudes y devoluciones. 
 - Usuarios: Incluye la posibilidad de registrar datos personales, verificar documentos y mantener un historial detallado de los préstamos solicitados. También permite la gestión de usuarios por parte del administrador, asegurando que la información de los usuarios esté actualizada y que los documentos necesarios estén validados.
