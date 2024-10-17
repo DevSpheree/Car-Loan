@@ -11,7 +11,7 @@ La administración de los vehículos de la universidad requiere un control rigur
 - Monitoreo:  Esto incluye la visualización de las rutas en tiempo real y la emisión de alertas cuando se detecta que un vehículo necesita mantenimiento. Permite al administrador supervisar el uso de los vehículos y asegurar su correcto funcionamiento.
 - Devolución: Contiene la posibilidad de realizar inspecciones de los vehículos cuando se devuelven, registrar cualquier incidente o daño, y actualizar el estado del vehículo en el catálogo. El sistema también notifica al usuario cuando la devolución ha sido aceptada o rechazada, finalizando así el préstamo.
 
-![MapaCapacidades](https://github.com/DevSpheree/Car-Loan/blob/d7e77fc3edfccca49123478d85e2abbd91750bd1/Mapa%20de%20Capacidades.png)
+![MapaCapacidades](https://github.com/DevSpheree/Car-Loan/blob/e2de258309c79d6d6a2a445e2fb56887c8cc2883/Mapa%20de%20Capacidades.png)
 
 
 
