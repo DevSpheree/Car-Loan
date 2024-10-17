@@ -11,6 +11,8 @@ La administración de los vehículos de la universidad requiere un control rigur
 - Monitoreo:
 - Devolución:
 
-![MapaCapacidades][(https://github.com/DevSpheree/Car-Loan/blob/d7e77fc3edfccca49123478d85e2abbd91750bd1/Mapa%20de%20Capacidades.png)]
+![MapaCapacidades](https://github.com/DevSpheree/Car-Loan/blob/d7e77fc3edfccca49123478d85e2abbd91750bd1/Mapa%20de%20Capacidades.png)
+
+
 
 
