@@ -7,12 +7,13 @@ La administración de los vehículos de la universidad requiere un control rigur
 Argumentar 
 
 ## Mapa de Capacidades
-- Administrador: El administrador tiene control total sobre la creación, eliminación y actualización de usuarios, vehículos, y la gestión de solicitudes de préstamo y devoluciones. Actúa como el principal responsable de asegurar que todos los procesos funcionen correctamente, incluyendo la aprobación o rechazo de solicitudes y devoluciones. 
-- Usuarios: Incluye la posibilidad de registrar datos personales, verificar documentos y mantener un historial detallado de los préstamos solicitados. También permite la gestión de usuarios por parte del administrador, asegurando que la información de los usuarios esté actualizada y que los documentos necesarios estén validados.
-- Vehiculos:  Permite gestionar la flota disponible en el sistema. Aquí se pueden crear, eliminar o actualizar los registros de los vehículos, mantener información detallada sobre cada uno (como disponibilidad, mantenimiento, datos generales) y verificar si un vehículo está disponible para préstamo antes de proceder con una solicitud.
-- Solicitud de Prestámo: Los usuarios pueden seleccionar vehículos de un catálogo y solicitar su uso, mientras que el administrador revisa y aprueba o rechaza dichas solicitudes. El sistema notifica a los usuarios sobre el estado de sus solicitudes a través de correo o SMS. También se lleva un historial de todas las solicitudes de préstamo.
-- Monitoreo:  Esto incluye la visualización de las rutas en tiempo real y la emisión de alertas cuando se detecta que un vehículo necesita mantenimiento. Permite al administrador supervisar el uso de los vehículos y asegurar su correcto funcionamiento.
-- Devolución: Contiene la posibilidad de realizar inspecciones de los vehículos cuando se devuelven, registrar cualquier incidente o daño, y actualizar el estado del vehículo en el catálogo. El sistema también notifica al usuario cuando la devolución ha sido aceptada o rechazada, finalizando así el préstamo.
+
+Agregar la descripción correspondiente de cada capacidad
+
+- Registro:
+- Préstamo:
+- Monitoreo:
+- Devolución:
 
 ![MapaCapacidades](https://github.com/DevSpheree/Car-Loan/blob/e2de258309c79d6d6a2a445e2fb56887c8cc2883/Mapa%20de%20Capacidades.png)
 
