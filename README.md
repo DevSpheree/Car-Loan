@@ -15,7 +15,7 @@ Agregar la descripción correspondiente de cada capacidad
 - Monitoreo:
 - Devolución:
 
-![MapaCapacidades](https://github.com/DevSpheree/Car-Loan/blob/e2de258309c79d6d6a2a445e2fb56887c8cc2883/Mapa%20de%20Capacidades.png)
+![MapaCapacidades](https://github.com/DevSpheree/Car-Loan/blob/7d194e0a815889e6f17f1a9c886c76b2214a5120/Mapa%20de%20Capacidades.png)
 
 
 
