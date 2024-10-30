@@ -16,8 +16,6 @@ Desarrollar un sistema en la nube que permita gestionar los prestamos de vehícu
 
 ## Objetivo de la Aplicacion
 
-## Objetivo Principal
-
 Gestionar de forma eficiente los préstamos y devoluciones de vehículos. Nos permitirá registrar de manera clara quién tiene cada vehículo, cuándo debe devolverlo, y garantizar que todo el proceso esté bien documentado y controlado desde cualquier dispositivo con acceso a internet.
 
 ## ¿Qué Buscamos?
