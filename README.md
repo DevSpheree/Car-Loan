@@ -50,5 +50,9 @@ La aplicación estará alojada en la nube, específicamente utilizando los servi
 
 ![Mapa de Capacidades](https://github.com/DevSpheree/Car-Loan/blob/3970c50c63c9df3ad832712fe8b58b72198c1ca1/Mapa%20de%20Capacidades.png)
 
+## Prototipo
+
+![Prototipo](https://github.com/DevSpheree/Car-Loan/blob/a78b5a3ca30c0135ff0cb2bb7f5a481dbcac0c8e/Qr-DevSphere.png)
+
 
 
