@@ -1,7 +1,9 @@
 # Car-Loan
 ## ¿Quiénes somos?
 
-Somos Devsphere, una empresa dedicada a brindar soluciones a problemas que requieran arquitectura y desarrollo de software.
+
+![WhatsApp Image 2024-11-06 at 8 39 49 PM](https://github.com/user-attachments/assets/8d763990-6571-4ea7-aace-c94f1a3a9484)
+Somos Devsphere, una empresa dedicada a brindar soluciones a problemas que requieran arquitectura y desarrollo de software. Nos centramos en proporcionar soluciones digitales personalizadas y efectivas que impulsen la eficiencia y la innovación en las empresas, ayudándolas a alcanzar sus objetivos estratégicos y a adaptarse a un entorno empresarial en constante cambio.
 
 
 ## Descripción del reto
