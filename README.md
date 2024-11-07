@@ -43,8 +43,6 @@ Agregar la descripción correspondiente de cada capacidad
 - Monitoreo: El usuario administrativo podrá visualizar la ubicación actual de un vehículo que forme parte de una préstamo activa y la ruta original que fue especificada en la solicitud del préstamo.
 - Devolución: El usuario administrativo deberá tomar fotos del vehículo devuelto y posteriormente realizara el checklist para asegurar el estado actual del vehículo. Luego actualiza los datos relacionados al kilometraje y la gasolina del vehículo. Por úlitmo, genera un informe sobre el uso del vehículo y los costos generados por parte del cliente durante el préstamo.
 
-## CAMBIOS PENDIENTES:
-- En el mapa dentro devoluciones cambiar el tercer nivel a actualizar kilometraje y actualizar gasolina
 
 ![Mapa de Capacidades](https://github.com/DevSpheree/Car-Loan/blob/68aafda9d701e8e3a6b4e724579caeb3575f6679/Mapa%20de%20Capacidades.png)
 
