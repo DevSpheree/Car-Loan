@@ -46,7 +46,7 @@ Agregar la descripción correspondiente de cada capacidad
 ## CAMBIOS PENDIENTES:
 - En el mapa dentro devoluciones cambiar el tercer nivel a actualizar kilometraje y actualizar gasolina
 
-![Mapa de Capacidades](https://github.com/user-attachments/assets/c03ae0a4-ca47-4ddb-8ca5-a1d27376b3a8)
+![Mapa de Capacidades](https://github.com/DevSpheree/Car-Loan/blob/68aafda9d701e8e3a6b4e724579caeb3575f6679/Mapa%20de%20Capacidades.png)
 
 
 
