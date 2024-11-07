@@ -52,7 +52,8 @@ La aplicación estará alojada en la nube, específicamente utilizando los servi
 
 ## Prototipo
 
-![Prototipo](https://github.com/DevSpheree/Car-Loan/blob/a78b5a3ca30c0135ff0cb2bb7f5a481dbcac0c8e/Qr-DevSphere.png)
+<img src="https://github.com/DevSpheree/Car-Loan/blob/a78b5a3ca30c0135ff0cb2bb7f5a481dbcac0c8e/Qr-DevSphere.png" alt="Prototipo" width="400">
+
 
 
 
