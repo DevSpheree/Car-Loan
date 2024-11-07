@@ -20,8 +20,7 @@ Gestionar de forma eficiente los préstamos y devoluciones de vehículos. Nos pe
 
 ## ¿Qué Buscamos?
 
-Ofrecer una experiencia más ágil tanto para los usuarios que prestan los vehículos como para el equipo encargado de gestionarlos
-
+Ofrecer una experiencia más ágil tanto para los usuarios que prestan los vehículos como para los solicitantes de préstamos de vehículos.
 ## Descripción de la Aplicación
 La aplicación estará alojada en la nube, específicamente utilizando los servicios de Google Cloud, lo que garantiza que será accesible desde cualquier dispositivo conectado a internet. Esta accesibilidad es clave para que tanto el personal administrativo como los usuarios puedan acceder en cualquier momento y lugar. Además, integraremos Firebase para manejar la autenticación de usuarios, la base de datos en tiempo real y otras funcionalidades como notificaciones push, lo que permitirá una experiencia de usuario fluida y eficiente, aprovechando la infraestructura segura y escalable de Google
 
