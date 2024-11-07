@@ -1,4 +1,9 @@
 # Car-Loan
+## ¿Quiénes somos?
+
+Somos Devsphere, una empresa dedicada a brindar soluciones a problemas que requieran arquitectura y desarrollo de software.
+
+
 ## Descripción del reto
 
 La administración de los vehículos de la universidad requiere un control riguroso para asegurar su disponibilidad y buen uso. Un sistema de gestión de préstamos nativo nube permitirá organizar y monitorear las solicitudes y devoluciones de vehículos, asegurando una utilización eficiente y responsable de estos recursos. La nube proporcionará una plataforma centralizada y segura para el manejo de datos.
@@ -35,12 +40,10 @@ La aplicación estará alojada en la nube, específicamente utilizando los servi
 
 ## Mapa de Capacidades
 
-Agregar la descripción correspondiente de cada capacidad
-
-- Registro: Se podrá registrar vehículos bajo dos categorías (Livianos o Pesados), Se podrá registrar usuarios bajo dos categorías (Docente o Administrativo).
-- Préstamo: Un usuario crea una solicitud al especificar el vehículo, el lugar de destino y el tiempo de duración del préstamo. Luego un usuario administrativo puede aceptar or rechazar dicha solicitud y el cliente será notificado sobre el estado de su solicitud. Si el cliente lo desea, este podrá cancelar su solicitud.
-- Monitoreo: El usuario administrativo podrá visualizar la ubicación actual de un vehículo que forme parte de una préstamo activa y la ruta original que fue especificada en la solicitud del préstamo.
-- Devolución: El usuario administrativo deberá tomar fotos del vehículo devuelto y posteriormente realizara el checklist para asegurar el estado actual del vehículo. Luego actualiza los datos relacionados al kilometraje y la gasolina del vehículo. Por úlitmo, genera un informe sobre el uso del vehículo y los costos generados por parte del cliente durante el préstamo.
+- Registro: Se podrá registrar vehículos bajo dos categorías (Livianos o Pesados), Se podrá buscar usuarios en la base de datos UTPL bajo dos categorías (Docente o Administrativo).
+- Préstamo: Un usuario crea una solicitud al especificar el vehículo, el lugar de destino y el tiempo de duración del préstamo. Luego un usuario administrativo puede aceptar or rechazar dicha solicitud y el solicitante será notificado sobre el estado de su solicitud. Si el solicitante lo desea, este podrá cancelar su solicitud.
+- Monitoreo: El usuario administrativo podrá visualizar la ruta original que fue especificada en la solicitud del préstamo y la ubicación actual de un vehículo que forme parte de una préstamo activo.
+- Devolución: El usuario administrativo deberá tomar fotos del vehículo devuelto y posteriormente realizara el checklist para asegurar el estado actual del vehículo. Luego actualiza los datos relacionados al kilometraje y la gasolina del vehículo. Por úlitmo, se genera un informe sobre el uso del vehículo y los costos generados por parte del cliente durante el préstamo. Además se puede observar un historial.
 
 
 ![Mapa de Capacidades](https://github.com/DevSpheree/Car-Loan/blob/3970c50c63c9df3ad832712fe8b58b72198c1ca1/Mapa%20de%20Capacidades.png)
