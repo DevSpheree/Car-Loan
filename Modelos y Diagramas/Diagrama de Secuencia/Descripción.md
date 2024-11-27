@@ -8,4 +8,5 @@
 ![Monitoreo](https://github.com/DevSpheree/Car-Loan/blob/66f91c18398eade0ebdebeed93c757a17f0a6777/Modelos%20y%20Diagramas/Diagrama%20de%20Secuencia/D.Secuencia-%20Monitoreo.png)
 
 ## Devolucion
+![Devolucion](https://github.com/DevSpheree/Car-Loan/blob/1ef4e57f1d9d6227614c5bfa3b033a49850c31ea/Modelos%20y%20Diagramas/Diagrama%20de%20Secuencia/D.Secuencia-%20Devolucion.png)
 
