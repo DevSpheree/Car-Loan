@@ -17,7 +17,7 @@ Somos Devsphere, una empresa dedicada a brindar soluciones a problemas que requi
 
 ## Miembros del Equipo
 
-![Integrantes](https://github.com/DevSpheree/Car-Loan/blob/158bb9d33970cbe4dc140fe6d74de91f24c53a2d/Integrantes.png)
+![Integrantes](https://github.com/DevSpheree/Car-Loan/blob/63e4c4719865db05141b705ff87db93f1068aa4a/Integrantes.png)
 
 ## Descripción del reto
 
