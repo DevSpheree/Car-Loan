@@ -3,7 +3,7 @@
 | **Actores**          | - Administrador<br>- UTPL (fuente de datos)      |
 | **Flujo normal**     | 1. El administrador busca a los docentes o administrativos en UTPL.<br>2. UTPL devuelve la información de los usuarios buscados al administrador.<br>3. El administrador registra un nuevo vehículo en UTPL. |
 | **Flujo alternativo**| 1a. Si el administrador no encuentra coincidencias en las búsquedas, UTPL muestra un mensaje de "no se encontraron resultados" al administrador.<br>2a. Si el administrador ingresa información incorrecta o incompleta para el registro de vehículos, UTPL muestra un mensaje de error y solicita correcciones al administrador. |
-                                              |
+                                              
 
 | **Nombre**           | Préstamo                                         |
 |-----------------------|-------------------------------------------------|
