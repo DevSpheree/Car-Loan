@@ -7,13 +7,14 @@ Somos Devsphere, una empresa dedicada a brindar soluciones a problemas que requi
 
 ## Misión y Visión
 
-| **Visión**                                                                                                                                                                                                                   |
-|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Ser la comunidad líder en el desarrollo de soluciones tecnológicas innovadoras, donde profesionales y entusiastas colaboren para transformar ideas en realidades que impacten positivamente en la sociedad.                  |
+| **Visión**                                                 |  **Misión**                                          |         
+|-------------------------------------------------------------------------------------------------------------------|
+| Ser la comunidad líder en el desarrollo de soluciones      |Proporcionar soluciones tecnológicas personalizadas
+tecnológicas innovadoras, donde profesionales y entusiastas   y efectivas que impulsen la eficiencia y la innovación
+colaboren para transformar ideas en realidades que impacten   en las empresas, ayudándolas a alcanzar sus objetivos
+positivamente en la sociedad.                                 estratégicos y a adaptarse a un entorno empresarial en
+                                                             | constante cambio. |
 
-| **Misión**                                                                                                                                                                                                                   |
-|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Proporcionar soluciones tecnológicas personalizadas y efectivas que impulsen la eficiencia y la innovación en las empresas, ayudándolas a alcanzar sus objetivos estratégicos y a adaptarse a un entorno empresarial en constante cambio. |
 
 ## Integrantes del Equipo
 
