@@ -22,8 +22,8 @@
 | **Nombre**           | Monitoreo                                        |
 |-----------------------|-------------------------------------------------|
 | **Actores**          | - Administrador<br>- Telemetría-Vehículo (fuente de datos) |
-| **Flujo normal**     | 1. El administrador monitorea los vehículos de UTPL.<br>2. UTPL muestra la ruta y ubicación del vehículo. |
-| **Flujo alternativo**| 2a. Si la telemetría no está disponible, UTPL muestra un mensaje de error al administrador. |
+| **Flujo normal**     | 1. El administrador monitorea los vehículos de UTPL.<br>2. Telemetría-Vehículo muestra la ruta y ubicación del vehículo. |
+| **Flujo alternativo**| 2a. Si la telemetría no está disponible, se muestra un mensaje de error al administrador. |
 
 ## Devolucion
 ![Devolucion](https://github.com/DevSpheree/Car-Loan/blob/c495ad4306f3ba0424ab9b9062779200b51c3151/Modelos%20y%20Diagramas/Casos%20de%20Uso/Caso%20de%20uso%20-%20Devolucion.png)
