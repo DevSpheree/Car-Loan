@@ -13,7 +13,7 @@ Somos Devsphere, una empresa dedicada a brindar soluciones a problemas que requi
 tecnológicas innovadoras, donde profesionales y entusiastas   y efectivas que impulsen la eficiencia y la innovación
 colaboren para transformar ideas en realidades que impacten   en las empresas, ayudándolas a alcanzar sus objetivos
 positivamente en la sociedad.                                 estratégicos y a adaptarse a un entorno empresarial en
-                                                             | constante cambio. |
+                                                             | constante cambio.                                    |
 
 
 ## Integrantes del Equipo
