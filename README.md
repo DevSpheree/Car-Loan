@@ -27,8 +27,8 @@ La administración de los vehículos de la universidad requiere un control rigur
 
 Actualmente, la gestión de los vehículos se lleva a cabo de forma manual, lo que genera demoras, posibles errores humanos y falta de visibilidad en tiempo real del estado de los préstamos. Queremos reducir estos inconvenientes, brindando una solución digital que automatice las tareas y ofrezca mayor control y acceso inmediato a la información.
 
-## Nuestra solución
-Desarrollar un sistema en la nube que permita gestionar los prestamos de vehículos de la universidad que permitan una administración optima y eficiente, garantizando el uso adecuado de los recursos vehiculares.
+## Solución
+Desarrollar un sistema nativo en nube con el fin de gestionar de forma eficiente los préstamos y devoluciones de vehículos. Nos permitirá registrar de manera clara los aspectos principales del proceso de préstamo, y garantizar que dicho proceso esté bien documentado y controlado desde cualquier dispositivo móvil con acceso a internet.
 
 ## Prototipo
 
