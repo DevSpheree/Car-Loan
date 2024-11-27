@@ -1,5 +1,6 @@
 ## Registro
-![Registro](https://github.com/DevSpheree/Car-Loan/blob/c495ad4306f3ba0424ab9b9062779200b51c3151/Modelos%20y%20Diagramas/Casos%20de%20Uso/Caso%20de%20uso%20-%20Registro.png)
+![Caso de uso - Registro](https://github.com/user-attachments/assets/1cfd1dc0-9c9e-4113-be90-cf0bd8591b99)
+
 
 | **Nombre**           | Registro                                         |
 |-----------------------|-------------------------------------------------|
@@ -8,7 +9,8 @@
 | **Flujo alternativo**| 1a. Si el administrador no encuentra coincidencias en las búsquedas, UTPL muestra un mensaje de "no se encontraron resultados" al administrador.<br>2a. Si el administrador ingresa información incorrecta o incompleta para el registro de vehículos, UTPL muestra un mensaje de error y solicita correcciones al administrador. |
 
 ## Prestamos
-![Prestamos](https://github.com/DevSpheree/Car-Loan/blob/c495ad4306f3ba0424ab9b9062779200b51c3151/Modelos%20y%20Diagramas/Casos%20de%20Uso/Caso%20de%20uso%20-%20Prestamo.png)
+![Caso de uso - Prestamo](https://github.com/user-attachments/assets/835b29c8-275d-4a51-9104-eedc71f9869c)
+
 
 | **Nombre**           | Préstamo                                         |
 |-----------------------|-------------------------------------------------|
@@ -17,7 +19,8 @@
 | **Flujo alternativo**| 1a. Si el cliente cancela la solicitud ingresada, UTPL notifica el estado de la solicitud al administrador.<br>2a. Si el administrador rechaza la solicitud enviada por el cliente, UTPL notifica el estado de la solicitud al cliente. |
 
 ## Monitoreo
-![Monitoreo](https://github.com/DevSpheree/Car-Loan/blob/c495ad4306f3ba0424ab9b9062779200b51c3151/Modelos%20y%20Diagramas/Casos%20de%20Uso/Caso%20de%20uso%20-%20Monitoreo.png)
+![Caso de uso - Monitoreo](https://github.com/user-attachments/assets/6a0f7e0b-dbc8-41f0-8b7f-c4b2f5cd67ab)
+
 
 | **Nombre**           | Monitoreo                                        |
 |-----------------------|-------------------------------------------------|
@@ -26,7 +29,7 @@
 | **Flujo alternativo**| 2a. Si la telemetría no está disponible, se muestra un mensaje de error al administrador. |
 
 ## Devolucion
-![Devolucion](https://github.com/DevSpheree/Car-Loan/blob/c495ad4306f3ba0424ab9b9062779200b51c3151/Modelos%20y%20Diagramas/Casos%20de%20Uso/Caso%20de%20uso%20-%20Devolucion.png)
+![Caso de uso - Devolucion](https://github.com/user-attachments/assets/b7252833-936c-4f7b-b811-00d870ca3485)
 
 | **Nombre**           | Devolución                                       |
 |-----------------------|-------------------------------------------------|
