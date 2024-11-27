@@ -8,7 +8,7 @@ Somos Devsphere, una empresa dedicada a brindar soluciones a problemas que requi
 ## Misión y Visión
 
 | **Visión**                                                 |  **Misión**                                          |         
-|-------------------------------------------------------------------------------------------------------------------|
+|------------------------------------------------------------|------------------------------------------------------|
 | Ser la comunidad líder en el desarrollo de soluciones      |Proporcionar soluciones tecnológicas personalizadas
 tecnológicas innovadoras, donde profesionales y entusiastas   y efectivas que impulsen la eficiencia y la innovación
 colaboren para transformar ideas en realidades que impacten   en las empresas, ayudándolas a alcanzar sus objetivos
