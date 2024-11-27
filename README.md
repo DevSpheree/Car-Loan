@@ -15,7 +15,7 @@ Somos Devsphere, una empresa dedicada a brindar soluciones a problemas que requi
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Proporcionar soluciones tecnológicas personalizadas y efectivas que impulsen la eficiencia y la innovación en las empresas, ayudándolas a alcanzar sus objetivos estratégicos y a adaptarse a un entorno empresarial en constante cambio. |
 
-## Miembros del Equipo
+## Integrantes del Equipo
 
 ![Integrantes](https://github.com/DevSpheree/Car-Loan/blob/63e4c4719865db05141b705ff87db93f1068aa4a/Integrantes.png)
 
