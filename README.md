@@ -48,7 +48,7 @@ La aplicación estará alojada en la nube, específicamente utilizando los servi
 - Devolución: El usuario administrativo deberá tomar fotos del vehículo devuelto y posteriormente realizara el checklist para asegurar el estado actual del vehículo. Luego actualiza los datos relacionados al kilometraje y la gasolina del vehículo. Por úlitmo, se genera un informe sobre el uso del vehículo y los costos generados por parte del cliente durante el préstamo. Además se puede observar un historial.
 
 
-![Mapa de Capacidades](https://github.com/DevSpheree/Car-Loan/blob/3970c50c63c9df3ad832712fe8b58b72198c1ca1/Mapa%20de%20Capacidades.png)
+![Mapa de Capacidades](https://github.com/DevSpheree/Car-Loan/blob/9deb6222f39ed99982c45cd905a41422a49ec649/Modelos%20y%20Diagramas/Mapa%20de%20Capacidades/Mapa%20de%20Capacidades.png)
 
 ## Prototipo
 
