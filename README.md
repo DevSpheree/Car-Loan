@@ -26,10 +26,9 @@ Desarrollar un sistema nativo en nube con el fin de gestionar de forma eficiente
 
 ## Prototipo
 
-<div style="justify-items: center;">
+<div align="center">
     <img src="https://github.com/DevSpheree/Car-Loan/blob/a78b5a3ca30c0135ff0cb2bb7f5a481dbcac0c8e/Qr-DevSphere.png" alt="Prototipo" width="500">
 </div>
-
 
 
 
