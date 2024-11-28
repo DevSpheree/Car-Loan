@@ -29,8 +29,13 @@ Un diagrama de clases sigue la siguiente estructura:
    - *Herencia*: Una clase hereda propiedades y métodos de otra.  
 
 3. *Visibilidad de atributos y métodos*:  
-   - - Público: Accesible desde cualquier lugar.  
-   - - Privado: Accesible solo dentro de la clase.  
-   - - Protegido: Accesible dentro de la clase y sus subclases.  
+   - Público: Accesible desde cualquier lugar.  
+   - Privado: Accesible solo dentro de la clase.  
+   - Protegido: Accesible dentro de la clase y sus subclases.  
 
 4. *Cardinalidad*: Define la cantidad de objetos relacionados, como 1:1, 1:N o N:M.
+
+## [Enlace al diccionario de clases](https://utpl-my.sharepoint.com/:x:/g/personal/hlchuquimarca_utpl_edu_ec/Ef4Q6vqcT6ZIkBWhR8b88AsBFVgr6-DH5vroV6cvmuYZhQ?e=caQLEj)
+
+## Diagrama de Clases
+![Diagrama De Clases](https://utpl-my.sharepoint.com/:x:/g/personal/mjregalado2_utpl_edu_ec/EdyTVc0RZANGr5Kybq8r0UsBbC61N5geK_jva-kyXZCgOA?email=mjregalado2%40utpl.edu.ec&e=5CJ6uk)
