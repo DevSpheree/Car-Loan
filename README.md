@@ -12,8 +12,8 @@ Somos Devsphere, una empresa dedicada a brindar soluciones a problemas que requi
 | Ser la comunidad líder en el desarrollo de soluciones tecnológicas innovadoras, donde profesionales y entusiastas colaboren para transformar ideas en realidades que impacten positivamente en la sociedad.                  | Proporcionar soluciones tecnológicas personalizadas y efectivas que impulsen la eficiencia y la innovación en las empresas, ayudándolas a alcanzar sus objetivos estratégicos y a adaptarse a un entorno empresarial en constante cambio. |
 
 ## Integrantes del Equipo
+![Integrantes](https://github.com/user-attachments/assets/9ff0dd87-9c0b-42a3-baa8-95732c6ceae9)
 
-![Integrantes](https://github.com/DevSpheree/Car-Loan/blob/63e4c4719865db05141b705ff87db93f1068aa4a/Integrantes.png)
 
 ## Descripción del reto y Problemática
 
@@ -25,6 +25,9 @@ Actualmente, la gestión de los vehículos se lleva a cabo de forma manual, lo q
 Desarrollar un sistema nativo en nube con el fin de gestionar de forma eficiente los préstamos y devoluciones de vehículos. Nos permitirá registrar de manera clara los aspectos principales del proceso de préstamo, y garantizar que dicho proceso esté bien documentado y controlado desde cualquier dispositivo móvil con acceso a internet.
 
 ## Prototipo
+
+![Qr-DevSphere](https://github.com/user-attachments/assets/b91f7c79-fd01-4a93-bbb3-6b52ee3fe118)
+
 
 <div align="center">
     <img src="https://github.com/DevSpheree/Car-Loan/blob/a78b5a3ca30c0135ff0cb2bb7f5a481dbcac0c8e/Qr-DevSphere.png" alt="Prototipo" width="500">
