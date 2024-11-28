@@ -10,7 +10,7 @@ El *modelo 4+1 de vistas arquitectónicas* es un marco conceptual desarrollado p
 1. **Escenarios **  
    Proporcionan ejemplos concretos que demuestran cómo las diferentes vistas trabajan juntas para satisfacer los requisitos del sistema. Los casos de uso ayudan a validar y comunicar el diseño al ilustrar comportamientos clave del sistema.
 
-2. *Vista Lógica*  
+2. **Vista Lógica**  
    Describe la funcionalidad del sistema desde el punto de vista de los usuarios y desarrolladores. Muestra cómo se organiza el software en módulos o componentes que colaboran para cumplir con los requisitos funcionales.
 
 3. **Vista de Procesos **  
