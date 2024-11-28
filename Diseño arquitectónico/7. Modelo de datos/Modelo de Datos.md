@@ -1,16 +1,32 @@
-<p align="right">
-  <img src="https://i.postimg.cc/13qQdqZs/utpllogo.png" alt="Logo UTPL" width="150"/>
-</p>
-
 # Modelo de Datos
 
-El presente modelo de datos está diseñado para gestionar un sistema orientado a la administración de componentes, solicitudes, inventarios y órdenes de compra.Cada tabla representa una entidad principal o una relación clave entre entidades, con atributos que capturan los datos esenciales.
+## ¿Qué es un modelo de datos?
+Un *modelo de datos* es una representación estructurada que define cómo se organizan, almacenan y manipulan los datos dentro de un sistema o base de datos. Es un diseño conceptual que describe:
+- *Entidades*: Objetos o conceptos del mundo real, como "Clientes", "Productos" o "Órdenes".
+- *Atributos*: Propiedades o características de las entidades, como el "nombre" de un cliente o el "precio" de un producto.
+- *Relaciones*: Conexiones o asociaciones entre entidades, como la relación entre "Clientes" y "Órdenes".
 
-## Descripción General
+El propósito principal de un modelo de datos es facilitar la comprensión y gestión de los datos en sistemas complejos, asegurando que estén organizados de manera lógica y eficiente.
 
-El sistema permite a los usuarios del personal administrativo interactuar con componentes mediante operaciones como generar solicitudes, administrar inventarios, y procesar órdenes de compra. Adicionalmente, se registran los movimientos de los componentes, asegurando un historial detallado para su trazabilidad. La seguridad está garantizada a través de un sistema de credenciales asociado a cada usuario.
+## Estructura general de un modelo de datos
+Un modelo de datos se compone de los siguientes elementos clave:
 
-<p align="center">
-  <img src="https://i.postimg.cc/WzqVPFJG/Inventario-de-Bodega-Modelo-de-Datos-drawio.png" alt="Modelo de datos"/>
-</p>
+### 1. *Entidades*
+Representan los objetos principales que necesitan ser modelados dentro del sistema. 
+Ejemplo: Un cliente puede ser una entidad en un sistema de ventas.
 
+### 2. *Atributos*
+Son las características o propiedades que describen una entidad. 
+Ejemplo: Los atributos de un cliente pueden incluir:
+- Nombre
+- Dirección
+- Teléfono
+
+### 3. *Relaciones*
+Describen cómo las entidades están conectadas entre sí y cómo interactúan. 
+Ejemplo: Un cliente puede tener una relación de "realiza" con varias órdenes en un sistema de ventas.
+
+### Tipos comunes de modelos de datos:
+- *Modelo conceptual*: Representación abstracta, como diagramas Entidad-Relación (ER).
+- *Modelo lógico*: Especifica estructuras detalladas como tablas y columnas.
+- *Modelo físico*: Implementación en un sistema de base de datos específico.
