@@ -30,11 +30,6 @@ Desarrollar un sistema nativo en nube con el fin de gestionar de forma eficiente
     <img src="https://github.com/user-attachments/assets/b91f7c79-fd01-4a93-bbb3-6b52ee3fe118" alt="Prototipo" width="500">
 </div>
 
-![Qr-DevSphere](https://github.com/user-attachments/assets/b91f7c79-fd01-4a93-bbb3-6b52ee3fe118)
-
-
-
-
 
 
 
