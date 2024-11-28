@@ -30,3 +30,8 @@ Ejemplo: Un cliente puede tener una relación de "realiza" con varias órdenes e
 - *Modelo conceptual*: Representación abstracta, como diagramas Entidad-Relación (ER).
 - *Modelo lógico*: Especifica estructuras detalladas como tablas y columnas.
 - *Modelo físico*: Implementación en un sistema de base de datos específico.
+
+
+## Modelo de Datos
+![ModeloDeDatos](https://github.com/user-attachments/assets/0e6eb310-ebdf-468e-b71b-2b9d226894d8)
+
