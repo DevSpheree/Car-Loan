@@ -35,7 +35,8 @@ Un diagrama de clases sigue la siguiente estructura:
 
 4. *Cardinalidad*: Define la cantidad de objetos relacionados, como 1:1, 1:N o N:M.
 
-## [Enlace al diccionario de clases](https://utpl-my.sharepoint.com/:x:/g/personal/hlchuquimarca_utpl_edu_ec/Ef4Q6vqcT6ZIkBWhR8b88AsBFVgr6-DH5vroV6cvmuYZhQ?e=caQLEj)
+## [Enlace al diccionario de clases](https://utpl-my.sharepoint.com/:x:/g/personal/mjregalado2_utpl_edu_ec/EdyTVc0RZANGr5Kybq8r0UsBbC61N5geK_jva-kyXZCgOA?email=mjregalado2%40utpl.edu.ec&e=5CJ6uk)
 
 ## Diagrama de Clases
-![Diagrama De Clases](https://utpl-my.sharepoint.com/:x:/g/personal/mjregalado2_utpl_edu_ec/EdyTVc0RZANGr5Kybq8r0UsBbC61N5geK_jva-kyXZCgOA?email=mjregalado2%40utpl.edu.ec&e=5CJ6uk)
+![Diagrama De Clases](https://github.com/user-attachments/assets/3dddf11b-f332-421a-8a09-4e7346d63b5b)
+
