@@ -26,4 +26,15 @@ Los diagramas de secuencia son una herramienta de modelado en la Ingeniería de 
 ## Devolucion
 ![SDevolucion](https://github.com/user-attachments/assets/7bd88613-2653-4859-a7dc-c5f4e96133db)
 
+# Diagramas de Robustez  
+
+## ¿Qué son los diagramas de robustez?  
+Los diagramas de robustez son una herramienta de modelado utilizada en el diseño de software para detallar cómo los actores, objetos, y procesos interactúan dentro de un sistema. Sirven como un puente entre los diagramas de casos de uso y los diagramas de diseño detallado, permitiendo identificar elementos clave del sistema como actores, controladores y entidades.  
+
+## Estructura que siguen los diagramas de robustez  
+
+- **Actores:** Representan los usuarios u otros sistemas que interactúan con el sistema principal. Se dibujan como figuras humanas o íconos.  
+- **Entidades:** Son los elementos de datos o conceptos principales del dominio, representados como rectángulos.  
+- **Controladores:** Representan la lógica de la aplicación y la interacción entre actores y entidades. Se muestran como círculos u óvalos.  
+- **Relaciones:** Representan las conexiones entre actores, controladores y entidades mediante líneas con etiquetas que describen la interacción.  
 
