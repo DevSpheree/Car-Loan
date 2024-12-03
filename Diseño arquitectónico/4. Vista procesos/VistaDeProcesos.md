@@ -38,3 +38,25 @@ Los diagramas de robustez son una herramienta de modelado utilizada en el diseñ
 - **Controladores:** Representan la lógica de la aplicación y la interacción entre actores y entidades. Se muestran como círculos u óvalos.  
 - **Relaciones:** Representan las conexiones entre actores, controladores y entidades mediante líneas con etiquetas que describen la interacción.  
 
+## Registro
+![RegistroRobustez](https://github.com/user-attachments/assets/8474ca37-8651-496b-8284-bffa2e904ccd)
+
+
+
+## Prestamos
+![PrestamoRobustez](https://github.com/user-attachments/assets/b5d61639-0b55-415b-b6b5-586f33a9b41c)
+
+
+
+## Monitoreo
+![MonitoreoRobustez](https://github.com/user-attachments/assets/25bdd49d-868f-4a0d-acf6-7c7465d9bbbb)
+
+
+
+## Devolucion
+![DevolucionRobustez](https://github.com/user-attachments/assets/b4f0e8f1-720f-484f-a04b-9ab17d412d1e)
+
+
+
+
+
