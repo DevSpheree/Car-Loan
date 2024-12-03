@@ -15,10 +15,11 @@ Somos Devsphere, una empresa dedicada a brindar soluciones a problemas que requi
 ![Integrantes](https://github.com/user-attachments/assets/9ff0dd87-9c0b-42a3-baa8-95732c6ceae9)
 
 
-## Descripción del reto y Problemática
+## Descripción del reto
 
 La administración de los vehículos de la universidad requiere un control riguroso para asegurar su disponibilidad y buen uso. Un sistema de gestión de préstamos nativo nube permitirá organizar y monitorear las solicitudes y devoluciones de vehículos, asegurando una utilización eficiente y responsable de estos recursos. La nube proporcionará una plataforma centralizada y segura para el manejo de datos.
 
+## Problemática
 Actualmente, la gestión de los vehículos se lleva a cabo de forma manual, lo que genera demoras, posibles errores humanos y falta de visibilidad en tiempo real del estado de los préstamos. Queremos reducir estos inconvenientes, brindando una solución digital que automatice las tareas y ofrezca mayor control y acceso inmediato a la información.
 
 ## Solución
