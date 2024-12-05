@@ -3,7 +3,7 @@
 
 # Modelo 4+1 de Vistas Arquitectónicas
 
-El *modelo 4+1 de vistas arquitectónicas* es un marco conceptual desarrollado por *Philippe Kruchten* para describir la arquitectura de sistemas software complejos. Divide la arquitectura en cinco vistas diferentes, diseñadas para satisfacer las necesidades de diferentes interesados (*stakeholders*) y para facilitar la comunicación, comprensión y análisis del sistema.
+El *modelo 4+1 de vistas arquitectónicas* es un marco conceptual desarrollado por *Philippe Kruchten* para describir la arquitectura de sistemas de software complejos. Divide la arquitectura en cinco vistas diferentes, diseñadas para satisfacer las necesidades de diferentes interesados (*stakeholders*) y para facilitar la comunicación, comprensión y análisis del sistema.
 
 ## ¿Qué son las 4+1 vistas?
 
