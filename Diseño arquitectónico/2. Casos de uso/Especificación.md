@@ -58,8 +58,7 @@ La estructura de un diagrama de casos de uso incluye los siguientes componentes 
 | **Flujo alternativo**| 1a. Si el administrador no encuentra coincidencias en las búsquedas, UTPL muestra un mensaje de "no se encontraron resultados" al administrador.<br>2a. Si el administrador ingresa información incorrecta o incompleta para el registro de vehículos, UTPL muestra un mensaje de error y solicita correcciones al administrador. |
 
 ## Prestamos
-![CUPrestamo](https://github.com/user-attachments/assets/25291e06-0942-40c7-a720-1ed724d5b9fc)
-
+![Prestamo corregido](https://github.com/user-attachments/assets/1930e108-07f2-4127-ad0c-c96f1ee01883)
 
 
 | **Nombre**           | Préstamo                                         |
