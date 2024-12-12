@@ -90,7 +90,6 @@ El enfoque CI/CD fomenta ciclos de desarrollo cortos, iterativos y más seguros.
 - Despliegue en producción.
 - Configuración de monitoreo y logs.
 
----
 
 ## Frontend
 
