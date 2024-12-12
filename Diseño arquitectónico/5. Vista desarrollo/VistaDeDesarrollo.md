@@ -16,7 +16,7 @@
 |------------------|----------------------------|-------------------------------------------------------------------------------------------------------------------|
 | **Despliegue**  | Google Cloud Functions     | Servicio de computación serverless, ideal para funciones de uso único que se conectan hacia otros servicios.     |
 |                  | Firebase                   | Plataforma de Google para el desarrollo de aplicaciones web y aplicaciones móviles.                              
-|------------------|----------------------------|-------------------------------------------------------------------------------------------------------------------||
+|
 | **Operación**   | Google Cloud Run           | Plataforma gestionada que permite ejecutar código directamente en la infraestructura escalable de Google.        |
 |------------------|----------------------------|-------------------------------------------------------------------------------------------------------------------|
 | **Monitoreo**   | Grafana                    | Software libre que permite la visualización y el formato de datos métricos.                                      |
