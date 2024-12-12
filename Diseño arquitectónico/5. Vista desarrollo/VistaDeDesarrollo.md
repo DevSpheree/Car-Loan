@@ -54,7 +54,7 @@ El enfoque CI/CD fomenta ciclos de desarrollo cortos, iterativos y más seguros.
 |                  | Google Cloud Monitoring    | Servicio de Google que reduce la complejidad y ofrece soluciones para almacenamiento, estadísticas, macrodatos, aprendizaje automático y desarrollo de aplicaciones. |
 
 
-## Cronograma de actividades de desarrollo BackEnd y FrontEnd
+# Cronograma de actividades de desarrollo BackEnd y FrontEnd
 
 ## Backend
 
@@ -123,9 +123,8 @@ El enfoque CI/CD fomenta ciclos de desarrollo cortos, iterativos y más seguros.
 - Validación en entornos reales.
 - Configuración de monitoreo.
 
----
 
-## Actividades y entregables
+# Actividades y entregables
 
 ## Backend
 1. **Diseñar los modelos de datos y endpoints.**  
