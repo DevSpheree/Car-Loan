@@ -46,8 +46,8 @@ Se ha decidido usar DevOps para este proyecto porque presenta algunos beneficios
 |------------------|----------------------------|-------------------------------------------------------------------------------------------------------------------|
 | **Plan**        | Trello                     | Se ha usado Trello para planificar, desarrollando las historias de usuario con sus tareas, las cuales se asignan a los integrantes del equipo según su función, para esto se ha usado el apartado de *Power-ups* de Trello que nos otorga integración directa con ramas de un repositorio de github.       |
 | **Código**      | Expo                       | Se ha decidido usar esta plataforma de código abierto React Native para el desarrollo móvil multiplataforma, ya que se ha observado sencillez para el desarrollo.                              |
-|                  | Go                         | Lenguaje de programación de Google para el desarrollo de una gran variedad de aplicaciones. Se escogió debido a que la creación de APIs es ágil.                     |
-|                  | React Native               | Framework de código abierto para el desarrollo de aplicaciones para Android, iOS, macOS, Web, Windows, etc.      |
+|                   Go                         | Lenguaje de programación de Google para el desarrollo de una gran variedad de aplicaciones. Se escogió debido a que la creación de APIs es ágil.                     |
+|                   React Native               | Framework de código abierto para el desarrollo de aplicaciones para Android, iOS, macOS, Web, Windows, etc.      |
 | **Construcción**| NPM                        | Sistema de gestión de paquetes por defecto para Node.js, un entorno de ejecución para JavaScript.                |
 | **Pruebas**     | JUnit                      | Conjunto de bibliotecas utilizadas en programación para hacer pruebas unitarias de aplicaciones Java.            |
 | **Lanzamiento** | Jenkins                    | Servidor de automatización de código abierto escrito en Java. Compila y prueba proyectos de forma automática.    |
