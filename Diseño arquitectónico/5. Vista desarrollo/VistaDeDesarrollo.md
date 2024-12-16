@@ -46,17 +46,18 @@ Se ha decidido usar DevOps para este proyecto porque presenta algunos beneficios
 |------------------|----------------------------|-------------------------------------------------------------------------------------------------------------------|
 | **Plan**        | Trello                     | Se ha usado Trello para planificar, desarrollando las historias de usuario con sus tareas, las cuales se asignan a los integrantes del equipo según su función, para esto se ha usado el apartado de *Power-ups* de Trello que nos otorga integración directa con ramas de un repositorio de github.       |
 | **Código**      | Expo                       | Se ha decidido usar esta plataforma de código abierto React Native para el desarrollo móvil multiplataforma, ya que se ha observado sencillez para el desarrollo.                              |
-|                   Go                         | Lenguaje de programación de Google para el desarrollo de una gran variedad de aplicaciones. Se escogió debido a que la creación de APIs es ágil.                     |
-|                   React Native               | Framework de código abierto para el desarrollo de aplicaciones para Android, iOS, macOS, Web, Windows, etc.      |
-| **Construcción**| NPM                        | Sistema de gestión de paquetes por defecto para Node.js, un entorno de ejecución para JavaScript.                |
-| **Pruebas**     | JUnit                      | Conjunto de bibliotecas utilizadas en programación para hacer pruebas unitarias de aplicaciones Java.            |
-| **Lanzamiento** | Jenkins                    | Servidor de automatización de código abierto escrito en Java. Compila y prueba proyectos de forma automática.    |
-| **Despliegue**  | Google Cloud Functions     | Servicio de computación serverless, ideal para funciones de uso único que se conectan hacia otros servicios.     |
-|                  | Firebase                   | Plataforma de Google para el desarrollo de aplicaciones web y aplicaciones móviles.                              |
-| **Operación**   | Google Cloud Run           | Plataforma gestionada que permite ejecutar código directamente en la infraestructura escalable de Google.        |
-| **Monitoreo**   | Grafana                    | Software libre que permite la visualización y el formato de datos métricos.                                      |
-|                  | Discord                    | Servicio de mensajería instantánea y chat de voz.                                                                |
-|                  | Google Cloud Monitoring    | Servicio de Google que reduce la complejidad y ofrece soluciones para almacenamiento, estadísticas, macrodatos, aprendizaje automático y desarrollo de aplicaciones. |
+|         -       | Go                         | Lenguaje de programación de Google para el desarrollo de una gran variedad de aplicaciones. Se escogió debido a que la creación de APIs es ágil.                     |
+|       -         |  React Native               | Framework de código abierto para el desarrollo de aplicaciones para Android, iOS, macOS, Web, Windows, etc. Ha sido indicado como herramienta de uso obligatorio en cuanto al desarrollo frontend.      |
+|       -         |  Github               | GitHub es una plataforma de desarrollo colaborativo para alojar proyectos utilizando el sistema de control de versiones Git.  Se escogió por su sencilla integración con herramientas como Trello o Discord.   |
+| **Construcción**| Docker                     | Software de código abierto que permite crear, probar e implementar aplicaciones de forma rápida. Se escogió por su empaquetamiento de microservicios.                |
+| **Pruebas**     | JUnit                      | Conjunto de bibliotecas utilizadas en programación para hacer pruebas unitarias de aplicaciones Java. Su completitud ha sido la principal razón para ser escogido como herramienta de pruebas.            |
+| **Lanzamiento** | Jenkins                    | Servidor de automatización de código abierto escrito en Java. Compila y prueba proyectos de forma automática. Es una herramienta potente para el lanzamiento del proyecto.   |
+| **Despliegue**  | Google Cloud Functions     | Servicio de computación serverless, ideal para funciones de uso único que se conectan hacia otros servicios. Será de gran utilidad en el proyecto para incorporar funciones al proyecto.    |
+|          -       | Firebase                   | Plataforma de Google para el desarrollo de aplicaciones web y aplicaciones móviles. Su integración con otros servicios de Google es vital para el desarrollo del proyecto.                            |
+| **Operación**   | Google Cloud Run           | Plataforma gestionada que permite ejecutar código directamente en la infraestructura escalable de Google. Herramienta para manejar la operación del proyecto de forma efectiva.        |
+| **Monitoreo**   | Grafana                    | Software libre que permite la visualización y el formato de datos métricos.  Escogido por permitir un monitoreo a través de métricas fijas.                                    |
+|            -     | Discord                    | Servicio de mensajería instantánea y chat de voz. Se ha integrado con el repositorio github para las notificaciones y monitoreo del proyecto.                                                               |
+|          -       | Google Cloud Monitoring    | Servicio de Google que reduce la complejidad y ofrece soluciones para almacenamiento, estadísticas, macrodatos, aprendizaje automático y desarrollo de aplicaciones. Se escogió porque al ser de Google es de fácil integración con Firebase y Google Cloud Functions|
 
 
 # Cronograma de actividades de desarrollo BackEnd y FrontEnd
