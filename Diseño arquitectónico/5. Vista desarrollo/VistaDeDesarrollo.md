@@ -59,7 +59,7 @@ Se ha decidido usar DevOps para este proyecto porque presenta algunos beneficios
 |            -     | Discord                    | Servicio de mensajería instantánea y chat de voz. Se ha integrado con el repositorio github para las notificaciones y monitoreo del proyecto.                                                               |
 |          -       | Google Cloud Monitoring    | Servicio de Google que reduce la complejidad y ofrece soluciones para almacenamiento, estadísticas, macrodatos, aprendizaje automático y desarrollo de aplicaciones. Se escogió porque al ser de Google es de fácil integración con Firebase y Google Cloud Functions|
 
-
+---
 # Cronograma de actividades de desarrollo BackEnd y FrontEnd
 
 | Fase | Tarea | Backend | Frontend | Fecha Inicio | Fecha Finalización |
