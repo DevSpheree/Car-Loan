@@ -62,115 +62,16 @@ Se ha decidido usar DevOps para este proyecto porque presenta algunos beneficios
 
 # Cronograma de actividades de desarrollo BackEnd y FrontEnd
 
-## Backend
-
-### 1. Requerimientos y diseño
-- **Análisis de requisitos:** Identificar las funcionalidades necesarias del sistema.
-- **Diseño de la arquitectura:** Seleccionar la estructura del backend (microservicios, monolito).
-- **Definición de modelos de datos:** Diseñar las bases de datos y las relaciones.
-- **Definición de la API:** Crear un contrato API (endpoints, métodos, formatos).
-
-### 2. Configuración inicial
-- Configuración del entorno de desarrollo (IDE, dependencias, frameworks).
-- Creación de repositorios (Git, CI/CD pipelines).
-- Configuración del entorno de Cloud Functions.
-- Configuración de la base de datos (Firebase).
-
-### 3. Desarrollo
-- Implementación de modelos y esquemas de base de datos.
-- Desarrollo de endpoints:
-  - Autenticación y autorización (registro, inicio de sesión).
-  - Operaciones CRUD (Create, Read, Update, Delete).
-  - Integraciones externas (APIs de terceros, servicios de pago).
-- Implementación de lógica de negocio.
-- Manejo de errores y validación de datos.
-
-### 4. Pruebas y validación
-- Creación de pruebas unitarias para servicios.
-- Pruebas de integración con la base de datos.
-- Pruebas de rendimiento y escalabilidad.
-- Validación de seguridad.
-
-### 5. Implementación y despliegue
-- Preparación de la base de datos.
-- Despliegue en producción.
-- Configuración de monitoreo y logs.
-
-
-## Frontend
-
-### 1. Requerimientos y diseño
-- **Análisis de requisitos:** Definir la experiencia del usuario (UX).
-- **Wireframes y prototipos:** Crear bocetos visuales y prototipos interactivos.
-- **Definición de arquitectura:** Estructura de componentes, rutas y estados.
-
-### 2. Configuración inicial
-- Configuración del entorno de desarrollo.
-- Instalación de dependencias y configuración de herramientas.
-- Configuración del diseño base.
-
-### 3. Desarrollo
-- Creación de componentes base.
-- Implementación de rutas y navegación.
-- Integración con APIs del backend.
-- Desarrollo de lógica de estado.
-- Estilizado y responsividad.
-
-### 4. Pruebas y validación
-- Pruebas unitarias de componentes.
-- Pruebas funcionales y de interacción.
-- Validación de diseño responsivo y accesibilidad.
-- Pruebas de rendimiento en el navegador.
-
-### 5. Implementación y despliegue
-- Construcción del proyecto para producción.
-- Despliegue en Google Play.
-- Validación en entornos reales.
-- Configuración de monitoreo.
-
-
-# Actividades y entregables
-
-## Backend
-1. **Diseñar los modelos de datos y endpoints.**  
-   - Fecha inicio: 27/11/2024  
-   - Fecha finalización: 04/12/2024  
-
-2. **Implementar el endpoint de autenticación.**  
-   - Fecha inicio: 11/12/2024  
-   - Fecha finalización: 18/12/2024  
-
-3. **Crear lógica de negocio para los flujos principales.**  
-   - Fecha inicio: 20/12/2024  
-   - Fecha finalización: 02/01/2025  
-
-4. **Integrar servicios externos.**  
-   - Fecha inicio: 02/01/2025  
-   - Fecha finalización: 09/01/2025  
-
-5. **Probar y validar la seguridad.**  
-   - Fecha inicio: 09/01/2025  
-   - Fecha finalización: 16/01/2025  
-
-## Frontend
-1. **Crear componentes clave como formularios y dashboards.**  
-   - Fecha inicio: 04/12/2024  
-   - Fecha finalización: 10/12/2024  
-
-2. **Implementar autenticación y manejo de sesiones.**  
-   - Fecha inicio: 11/12/2024  
-   - Fecha finalización: 18/12/2024  
-
-3. **Integrar APIs y validar datos del backend.**  
-   - Fecha inicio: 02/01/2025  
-   - Fecha finalización: 09/01/2025  
-
-4. **Asegurar la responsividad y accesibilidad.**  
-   - Fecha inicio: 16/01/2025  
-   - Fecha finalización: 20/01/2025  
-
-5. **Realizar pruebas funcionales y visuales.**  
-   - Fecha inicio: 20/01/2025  
-   - Fecha finalización: 23/01/2025  
-
+| Fase | Tarea | Backend | Frontend | Fecha Inicio | Fecha Finalización |
+|---|---|---|---|---|---|
+| Diseño | Diseñar modelos de datos y endpoints | 27/11/2024 |  | 27/11/2024 | 04/12/2024 |
+| Desarrollo | Implementar endpoint de autenticación | 11/12/2024 |  | 11/12/2024 | 18/12/2024 |
+| Desarrollo | Crear lógica de negocio para flujos principales | 20/12/2024 |  | 20/12/2024 | 02/01/2025 |
+| Desarrollo | Integrar servicios externos | 02/01/2025 |  | 02/01/2025 | 09/01/2025 |
+| Pruebas | Probar y validar la seguridad | 09/01/2025 |  | 09/01/2025 | 16/01/2025 |
+| Diseño | Crear componentes clave (formularios, dashboards) |  | 04/12/2024 | 04/12/2024 | 10/12/2024 |
+| Desarrollo | Implementar autenticación y manejo de sesiones |  | 11/12/2024 | 11/12/2024 | 18/12/2024 |
+| Desarrollo | Integrar APIs y validar datos del backend |  | 02/01/2025 | 02/01/2025 | 09/01/2025 |
+| Desarrollo | Asegurar responsividad y accesibilidad |  | 16/01/2025 | 16/01/2025 | 20/01/2025 |
+| Pruebas | Realizar pruebas funcionales y visuales |  | 20/01/2025 | 20/01/2025 | 23/01/2025 |
 
