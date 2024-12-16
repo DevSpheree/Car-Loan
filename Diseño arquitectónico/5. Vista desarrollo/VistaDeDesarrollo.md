@@ -2,20 +2,23 @@
 
 ## ¿Qué es CI/CD?
 
-CI/CD, que significa *Integración Continua y Entrega/Despliegue Continuo*, es un conjunto de prácticas que automatizan las etapas de desarrollo, prueba y despliegue del software. Su objetivo principal es mejorar la velocidad, calidad y confiabilidad de las entregas de software.
+En este proyecto se ha decidido usar CI/CD, que significa *Integración Continua y Entrega/Despliegue Continuo* y es un conjunto de prácticas que automatizan las etapas de desarrollo, prueba y despliegue del software. Su objetivo principal es mejorar la velocidad, calidad y confiabilidad de las entregas de software, por lo que será vital en el desarrollo del proyecto.
 
 - *Integración Continua (CI)*: 
   - Es el proceso de integrar regularmente el código de diferentes desarrolladores en un repositorio compartido.
   - Incluye la ejecución automática de pruebas para identificar errores rápidamente.
+  - *Esto permitirá que el proyecto se desenvuelva con mayor agilidad.*
 
 - *Entrega Continua (CD - Continuous Delivery)*:
   - Extiende la CI al automatizar la preparación de entregas del software en cualquier momento.
   - Garantiza que el código esté siempre en un estado listo para producción.
   - Requiere pruebas adicionales y validaciones antes del despliegue.
+  - *Permite al proyecto estar siempre en condiciones para poder visualizarlo*
 
 - *Despliegue Continuo (CD - Continuous Deployment)*:
   - Va un paso más allá y automatiza también el proceso de despliegue en producción.
   - Cada cambio que pasa las pruebas se despliega automáticamente.
+  - *Automatización completa del proyecto.*
 
 El enfoque CI/CD fomenta ciclos de desarrollo cortos, iterativos y más seguros.
 
@@ -24,6 +27,8 @@ El enfoque CI/CD fomenta ciclos de desarrollo cortos, iterativos y más seguros.
 ## ¿Qué es DevOps?
 
 *DevOps* es una cultura, metodología y conjunto de prácticas que busca integrar los equipos de desarrollo (Development) y operaciones (Operations) para mejorar la colaboración, automatización y entrega continua de software. DevOps no es solo una herramienta, sino una filosofía que combina personas, procesos y tecnologías.
+
+Se ha decidido usar DevOps para este proyecto porque presenta algunos beneficios importantes.
 
 - *Beneficios de DevOps*:
   - Ciclos de entrega más rápidos.
@@ -39,9 +44,9 @@ El enfoque CI/CD fomenta ciclos de desarrollo cortos, iterativos y más seguros.
 
 | **Fase**        | **Herramienta**            | **Descripción**                                                                                                   |
 |------------------|----------------------------|-------------------------------------------------------------------------------------------------------------------|
-| **Plan**        | Trello                     | Software de administración de proyectos con interfaz web, clientes iOS y Android para organizar proyectos.       |
-| **Código**      | Expo                       | Plataforma de código abierto React Native para el desarrollo móvil multiplataforma.                              |
-|                  | Go                         | Lenguaje de programación de Google para el desarrollo de una gran variedad de aplicaciones.                      |
+| **Plan**        | Trello                     | Se ha usado Trello para planificar, desarrollando las historias de usuario con sus tareas, las cuales se asignan a los integrantes del equipo según su función, para esto se ha usado el apartado de *Power-ups* de Trello que nos otorga integración directa con ramas de un repositorio de github.       |
+| **Código**      | Expo                       | Se ha decidido usar esta plataforma de código abierto React Native para el desarrollo móvil multiplataforma, ya que se ha observado sencillez para el desarrollo.                              |
+|                  | Go                         | Lenguaje de programación de Google para el desarrollo de una gran variedad de aplicaciones. Se escogió debido a que la creación de APIs es ágil.                     |
 |                  | React Native               | Framework de código abierto para el desarrollo de aplicaciones para Android, iOS, macOS, Web, Windows, etc.      |
 | **Construcción**| NPM                        | Sistema de gestión de paquetes por defecto para Node.js, un entorno de ejecución para JavaScript.                |
 | **Pruebas**     | JUnit                      | Conjunto de bibliotecas utilizadas en programación para hacer pruebas unitarias de aplicaciones Java.            |
