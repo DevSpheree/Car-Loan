@@ -64,14 +64,14 @@ Se ha decidido usar DevOps para este proyecto porque presenta algunos beneficios
 
 | Fase | Tarea | Backend | Frontend | Fecha Inicio | Fecha Finalización |
 |---|---|---|---|---|---|
-| Diseño | Diseñar modelos de datos y endpoints | 27/11/2024 |  | 27/11/2024 | 04/12/2024 |
-| Desarrollo | Implementar endpoint de autenticación | 11/12/2024 |  | 11/12/2024 | 18/12/2024 |
-| Desarrollo | Crear lógica de negocio para flujos principales | 20/12/2024 |  | 20/12/2024 | 02/01/2025 |
-| Desarrollo | Integrar servicios externos | 02/01/2025 |  | 02/01/2025 | 09/01/2025 |
-| Pruebas | Probar y validar la seguridad | 09/01/2025 |  | 09/01/2025 | 16/01/2025 |
-| Diseño | Crear componentes clave (formularios, dashboards) |  | 04/12/2024 | 04/12/2024 | 10/12/2024 |
-| Desarrollo | Implementar autenticación y manejo de sesiones |  | 11/12/2024 | 11/12/2024 | 18/12/2024 |
-| Desarrollo | Integrar APIs y validar datos del backend |  | 02/01/2025 | 02/01/2025 | 09/01/2025 |
-| Desarrollo | Asegurar responsividad y accesibilidad |  | 16/01/2025 | 16/01/2025 | 20/01/2025 |
-| Pruebas | Realizar pruebas funcionales y visuales |  | 20/01/2025 | 20/01/2025 | 23/01/2025 |
+| Diseño | Diseñar modelos de datos y endpoints | ✓ |  | 27/11/2024 | 04/12/2024 |
+| Desarrollo | Implementar endpoint de autenticación | ✓ |  | 11/12/2024 | 18/12/2024 |
+| Desarrollo | Crear lógica de negocio para flujos principales | ✓ |  | 20/12/2024 | 02/01/2025 |
+| Desarrollo | Integrar servicios externos | 02/01/2025 |  | ✓ | 09/01/2025 |
+| Pruebas | Probar y validar la seguridad | 09/01/2025 |  | ✓ | 16/01/2025 |
+| Diseño | Crear componentes clave (formularios, dashboards) |  | ✓ | 04/12/2024 | 10/12/2024 |
+| Desarrollo | Implementar autenticación y manejo de sesiones |  | ✓ | 11/12/2024 | 18/12/2024 |
+| Desarrollo | Integrar APIs y validar datos del backend |  | ✓ | 02/01/2025 | 09/01/2025 |
+| Desarrollo | Asegurar responsividad y accesibilidad |  | ✓ | 16/01/2025 | 20/01/2025 |
+| Pruebas | Realizar pruebas funcionales y visuales |  | ✓ | 20/01/2025 | 23/01/2025 |
 
