@@ -1,0 +1,37 @@
+# Credenciales y configuración
+/config/*.json
+.env
+
+# Directorios de compilación y caché
+/tmp
+/bin
+/vendor
+
+# IDEs y editores
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos binarios de Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Archivos de testing
+*.test
+*.out
+
+# Archivos de log
+*.log
+
+# Air temporal files
+.air.toml
+tmp/
