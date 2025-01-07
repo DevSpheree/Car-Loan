@@ -1,74 +1,155 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import React, { useState } from "react";
+import {
+    View,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    StyleSheet,
+    Image,
+} from "react-native";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const LoginScreen = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
-}
+    const handleLogin = () => {
+        // Aquí puedes manejar la lógica de autenticación
+        console.log("Email:", email, "Password:", password);
+    };
+
+    return (
+        <View style={styles.container}>
+            {/* Encabezado con imagen y texto */}
+            <View style={styles.header}>
+                <Text style={styles.welcomeText}>Bienvenido a</Text>
+                <Image
+                    source={require("../../assets/images/checklist1.png")} // Cambia por la ruta de tu logo
+                    style={styles.logo1}
+                    resizeMode="contain"
+                />
+                <Image
+                    source={require("../../assets/images/logo.png")} // Cambia por la ruta de tu logo
+                    style={styles.logo}
+                    resizeMode="contain"
+                />
+            </View>
+
+            {/* Contenido de inicio de sesión */}
+            <View style={styles.loginContainer}>
+                <Text style={styles.loginTitle}>Inicio de sesión</Text>
+
+                {/* Input de correo */}
+                <TextInput
+                    style={styles.input}
+                    placeholder="Correo Institucional"
+                    placeholderTextColor="#000"
+                    value={email}
+                    onChangeText={setEmail}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                />
+
+                {/* Input de contraseña */}
+                <TextInput
+                    style={styles.input}
+                    placeholder="Contraseña"
+                    placeholderTextColor="#000"
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry
+                />
+
+                <View style={styles.inputContainer}>
+                    {/* Botón para recuperar contraseña */}
+                    <TouchableOpacity>
+                        <Text style={styles.forgotPassword}>Recupera tu contraseña</Text>
+                    </TouchableOpacity>
+                </View>
+
+
+
+                {/* Botón de inicio de sesión */}
+                <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+                    <Text style={styles.loginButtonText}>Iniciar Sesión</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: "#FFF",
+    },
+    header: {
+        backgroundColor: "#004270",
+        alignItems: "center",
+        justifyContent: "center",
+        paddingTop: 80,
+        paddingHorizontal: 10,
+        borderBottomRightRadius: 20,
+        borderBottomLeftRadius: 20,
+    },
+    welcomeText: {
+        color: "#FFF",
+        fontSize: 16,
+        marginBottom: 10,
+        fontWeight: "400",
+    },
+    logo1: {
+        width: 156,
+        height: 104,
+    },
+    logo: {
+        width: 180,
+        height: 120,
+    },
+    loginContainer: {
+        flex: 1,
+        padding: 20,
+        alignItems: "center",
+        marginTop: 30,
+    },
+    loginTitle: {
+        fontSize: 24,
+        fontWeight: "bold",
+        color: "#004270",
+        marginBottom: 30,
+    },
+    inputContainer: {
+        flexDirection: "row", // Orientación horizontal
+        justifyContent: "flex-end",
+        width: "100%",
+        marginBottom: 15,
+    },
+    input: {
+        width: "100%",
+        height: 50,
+        backgroundColor: "transparent",
+        paddingHorizontal: 15,
+        marginBottom: 15,
+        borderBottomWidth: 1,
+        borderColor: "#E9B40A",
+    },
+    forgotPassword: {
+        color: "#034872",
+        textDecorationLine: "underline",
+        marginBottom: 20,
+    },
+    loginButton: {
+        backgroundColor: "#004270",
+        paddingVertical: 15,
+        paddingHorizontal: 20,
+        borderRadius: 8,
+        width: "100%",
+        alignItems: "center",
+    },
+    loginButtonText: {
+        color: "#FFF",
+        fontSize: 16,
+        fontWeight: "bold",
+    },
 });
+
+export default LoginScreen;
