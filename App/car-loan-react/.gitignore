@@ -1,7 +1,9 @@
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
 # dependencies
+node_modules
 node_modules/
+package-lock.json
 
 # Expo
 .expo/
@@ -39,3 +41,5 @@ app-example
 
 #IDE
 .vscode/
+.idea/
+.idea
