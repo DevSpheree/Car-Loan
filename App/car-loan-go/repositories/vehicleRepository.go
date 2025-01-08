@@ -30,7 +30,7 @@ func (r *VehicleRepository) GetAll(ctx context.Context) ([]models.Vehicle, error
 		if err := doc.DataTo(&vehicle); err != nil {
 			return nil, err
 		}
-		vehicle.ID = doc.Ref.ID // Asignar el ID del documento
+		vehicle.ID = doc.Ref.ID 
 		vehicles = append(vehicles, vehicle)
 	}
 

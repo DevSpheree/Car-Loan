@@ -31,3 +31,4 @@ func GetFirestoreClient(ctx context.Context) *firestore.Client {
 	}
 	return client
 }
+
