@@ -2,27 +2,31 @@ package utils
 
 import "github.com/gofiber/fiber/v2"
 
-// GenericResponse define el formato de respuesta estándar.
-type GenericResponse struct {
-    Status   int         `json:"status"`
-    Message  string      `json:"message"`
-    Response interface{} `json:"response,omitempty"`
+type Response struct {
+    Success bool        `json:"success"`
+    Message string      `json:"message"`
+    Data    interface{} `json:"data,omitempty"`
 }
 
-// SendResponse envía una respuesta estándar.
-func SendResponse(c *fiber.Ctx, status int, message string, data interface{}) error {
-    return c.Status(status).JSON(GenericResponse{
-        Status:   status,
-        Message:  message,
-        Response: data,
+// SendAPIResponse sends a standardized API response
+func SendAPIResponse(c *fiber.Ctx, status int, success bool, message string, data interface{}) error {
+    return c.Status(status).JSON(Response{
+        Success: success,
+        Message: message,
+        Data:    data,
     })
 }
 
-// SendError envía una respuesta de error estándar.
+// SendSuccess is a helper for successful responses
+func SendSuccess(c *fiber.Ctx, message string, data interface{}) error {
+    return SendAPIResponse(c, fiber.StatusOK, true, message, data)
+}
+
+// SendError is a helper for error responses
 func SendError(c *fiber.Ctx, status int, message string, err error) error {
-    return c.Status(status).JSON(GenericResponse{
-        Status:   status,
-        Message:  message,
-        Response: fiber.Map{"error": err.Error()},
-    })
+    errMessage := message
+    if err != nil {
+        errMessage = err.Error()
+    }
+    return SendAPIResponse(c, status, false, errMessage, nil)
 }

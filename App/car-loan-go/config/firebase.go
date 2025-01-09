@@ -12,15 +12,14 @@ import (
 var FirebaseApp *firebase.App
 
 // InitFirebase inicializa Firebase y Firestore
-func InitFirebase() {
-	ctx := context.Background()
-	sa := option.WithCredentialsFile("./config/firebase-credentials.json")
-	app, err := firebase.NewApp(ctx, nil, sa)
-	if err != nil {
-		log.Fatalf("Error initializing Firebase: %v\n", err)
-	}
-
-	FirebaseApp = app
+func InitFirebase() error {
+    opt := option.WithCredentialsFile("./config/firebase-credentials.json")
+    app, err := firebase.NewApp(context.Background(), nil, opt)
+    if err != nil {
+        return err
+    }
+    FirebaseApp = app
+    return nil
 }
 
 // GetFirestoreClient obtiene el cliente de Firestore
