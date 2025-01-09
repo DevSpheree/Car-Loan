@@ -17,6 +17,7 @@ func (r *VehicleRepository) GetAll(ctx context.Context) ([]models.Vehicle, error
 
 	var vehicles []models.Vehicle
 	iter := client.Collection("vehicles").Documents(ctx)
+	
 	for {
 		doc, err := iter.Next()
 		if err == iterator.Done {
