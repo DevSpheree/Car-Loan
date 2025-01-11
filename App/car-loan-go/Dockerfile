@@ -30,8 +30,8 @@ RUN mkdir -p /app/config
 ARG FIREBASE_CREDENTIALS
 RUN echo "$FIREBASE_CREDENTIALS" > /app/config/firebase-credentials.json
 
-# Exponer el puerto 3000
-EXPOSE 3000
+# Exponer el puerto dinámico
+EXPOSE ${PORT}
 
 # Comando para ejecutar la aplicación
 CMD ["./main"]
