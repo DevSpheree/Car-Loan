@@ -24,7 +24,11 @@ WORKDIR /app
 # Copiar el ejecutable desde la etapa de construcción
 COPY --from=builder /app/main .
 COPY --from=builder /app/index.html .
-COPY --from=builder /app/config/firebase-credentials.json ./config/
+
+# Crear directorio config y archivo de credenciales
+RUN mkdir -p /app/config
+ARG FIREBASE_CREDENTIALS
+RUN echo "$FIREBASE_CREDENTIALS" > /app/config/firebase-credentials.json
 
 # Exponer el puerto 3000
 EXPOSE 3000
