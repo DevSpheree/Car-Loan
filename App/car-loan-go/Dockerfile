@@ -25,13 +25,13 @@ WORKDIR /app
 COPY --from=builder /app/main .
 COPY --from=builder /app/index.html .
 
-# Crear directorio config y archivo de credenciales
+# Crear directorio config
 RUN mkdir -p /app/config
-ARG FIREBASE_CREDENTIALS
-RUN echo "$FIREBASE_CREDENTIALS" > /app/config/firebase-credentials.json
 
-# Exponer el puerto dinámico
+# No escribimos el archivo aquí, lo haremos en tiempo de ejecución
+ENV FIREBASE_CREDENTIALS=""
+
 EXPOSE ${PORT}
 
-# Comando para ejecutar la aplicación
-CMD ["./main"]
+# Modificar el comando de inicio para escribir las credenciales antes de ejecutar
+CMD sh -c 'echo "$FIREBASE_CREDENTIALS" > /app/config/firebase-credentials.json && ./main'

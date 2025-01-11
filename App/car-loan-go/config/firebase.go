@@ -3,6 +3,7 @@ package config
 import (
 	"context"
 	"log"
+	"os"
 
 	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
@@ -13,12 +14,32 @@ var FirebaseApp *firebase.App
 
 // InitFirebase inicializa Firebase y Firestore
 func InitFirebase() error {
-    opt := option.WithCredentialsFile("./config/firebase-credentials.json")
-    app, err := firebase.NewApp(context.Background(), nil, opt)
-    if err != nil {
+    credPath := "./config/firebase-credentials.json"
+    
+    // Verificar si el archivo existe
+    if _, err := os.Stat(credPath); os.IsNotExist(err) {
+        log.Printf("Warning: Credentials file not found at %s\n", credPath)
         return err
     }
+
+    opt := option.WithCredentialsFile(credPath)
+    app, err := firebase.NewApp(context.Background(), nil, opt)
+    if err != nil {
+        log.Printf("Error initializing Firebase app: %v\n", err)
+        return err
+    }
+    
     FirebaseApp = app
+    
+    // Verificar la conexión a Firestore
+    ctx := context.Background()
+    client, err := app.Firestore(ctx)
+    if err != nil {
+        log.Printf("Error connecting to Firestore: %v\n", err)
+        return err
+    }
+    defer client.Close()
+    
     return nil
 }
 
