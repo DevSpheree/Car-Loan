@@ -12,11 +12,9 @@ import (
 
 var FirebaseApp *firebase.App
 
-// InitFirebase inicializa Firebase y Firestore
 func InitFirebase() error {
     credPath := "./config/firebase-credentials.json"
     
-    // Verificar si el archivo existe
     if _, err := os.Stat(credPath); os.IsNotExist(err) {
         log.Printf("Warning: Credentials file not found at %s\n", credPath)
         return err
@@ -31,7 +29,6 @@ func InitFirebase() error {
     
     FirebaseApp = app
     
-    // Verificar la conexión a Firestore
     ctx := context.Background()
     client, err := app.Firestore(ctx)
     if err != nil {
@@ -43,7 +40,6 @@ func InitFirebase() error {
     return nil
 }
 
-// GetFirestoreClient obtiene el cliente de Firestore
 func GetFirestoreClient(ctx context.Context) *firestore.Client {
 	client, err := FirebaseApp.Firestore(ctx)
 	if err != nil {

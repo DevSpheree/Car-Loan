@@ -37,3 +37,15 @@ func (r *VehicleRepository) GetAll(ctx context.Context) ([]models.Vehicle, error
 
 	return vehicles, nil
 }
+
+func (r *VehicleRepository) Create(ctx context.Context, vehicle *models.Vehicle) (string, error) {
+    client := config.GetFirestoreClient(ctx)
+    defer client.Close()
+
+    doc, _, err := client.Collection("vehicles").Add(ctx, vehicle)
+    if err != nil {
+        return "", err
+    }
+
+    return doc.ID, nil
+}

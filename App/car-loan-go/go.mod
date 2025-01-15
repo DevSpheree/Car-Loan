@@ -4,13 +4,18 @@ go 1.23.2
 
 require (
 	cloud.google.com/go/firestore v1.17.0
+	github.com/go-playground/validator/v10 v10.24.0
 	github.com/gofiber/fiber/v2 v2.52.6
 )
 
 require (
 	cloud.google.com/go/iam v1.2.2 // indirect
 	cloud.google.com/go/storage v1.43.0 // indirect
+	github.com/gabriel-vasile/mimetype v1.4.8 // indirect
+	github.com/go-playground/locales v0.14.1 // indirect
+	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
+	github.com/leodido/go-urn v1.4.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
 )
 
@@ -44,11 +49,11 @@ require (
 	go.opentelemetry.io/otel v1.31.0 // indirect
 	go.opentelemetry.io/otel/metric v1.31.0 // indirect
 	go.opentelemetry.io/otel/trace v1.31.0 // indirect
-	golang.org/x/crypto v0.31.0 // indirect
-	golang.org/x/net v0.33.0 // indirect
+	golang.org/x/crypto v0.32.0 // indirect
+	golang.org/x/net v0.34.0 // indirect
 	golang.org/x/oauth2 v0.25.0 // indirect
 	golang.org/x/sync v0.10.0 // indirect
-	golang.org/x/sys v0.28.0 // indirect
+	golang.org/x/sys v0.29.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
 	golang.org/x/time v0.8.0 // indirect
 	google.golang.org/api v0.214.0
