@@ -1,0 +1,54 @@
+# Version Control
+.git
+.gitignore
+
+# Go specific
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Project binaries
+bin/
+/main
+
+# IDE specific
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Dependencies
+/vendor/
+node_modules/
+
+# Environment files
+.env
+*.env
+.env.*
+
+# Temporary files
+tmp/
+temp/
+
+# Documentation
+README.md
+docs/
+*.md
+
+# Docker files
+Dockerfile
+docker-compose.yml
+
+# Air configuration
+.air.toml
+tmp/
+
+# Debug files
+__debug_bin
+
+# Test files
+*_test.go

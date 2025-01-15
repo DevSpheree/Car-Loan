@@ -1,74 +1,202 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import React from 'react'
+import * as yup from 'yup'
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
-export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
+type LoginFormType = {
+  email: string
+  password: string
 }
 
+const loginSchema = yup.object({
+  email: yup.string().required('El email es requerido').email('Ingrese un email válido'),
+  password: yup
+    .string()
+    .required('La contraseña es requerida')
+    .min(6, 'La contraseña debe tener al menos 6 caracteres')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+      'La contraseña debe contener al menos una mayúscula, una minúscula y un número'
+    ),
+})
+
+const LoginScreen = () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormType>({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    resolver: yupResolver(loginSchema),
+  })
+
+  const onSubmit = (data: LoginFormType) => {
+    console.log('Form data:', data)
+  }
+
+  return (
+    <View style={styles.container}>
+      {/* Encabezado con imagen y texto */}
+      <View style={styles.header}>
+        <Text style={styles.welcomeText}>Bienvenido a</Text>
+        <Image
+          source={require('@/assets/images/checklist1.png')}
+          style={styles.logo1}
+          resizeMode="contain"
+        />
+        <Image
+          source={require('@/assets/images/logo.png')}
+          style={styles.logo}
+          resizeMode="contain"
+        />
+      </View>
+
+      {/* Contenido de inicio de sesión con React Hook Form */}
+      <View style={styles.formContainer}>
+        <Controller
+          control={control}
+          rules={{
+            required: 'El email es requerido',
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: 'Email inválido',
+            },
+          }}
+          name="email"
+          render={({ field: { onChange, value } }) => (
+            <>
+              <TextInput
+                style={styles.input}
+                placeholder="Email"
+                onChangeText={onChange}
+                value={value}
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+              {errors.email && <Text style={styles.errorText}>{errors.email.message}</Text>}
+            </>
+          )}
+        />
+
+        <Controller
+          control={control}
+          rules={{
+            required: 'La contraseña es requerida',
+            minLength: {
+              value: 6,
+              message: 'La contraseña debe tener al menos 6 caracteres',
+            },
+          }}
+          name="password"
+          render={({ field: { onChange, value } }) => (
+            <>
+              <TextInput
+                style={styles.input}
+                placeholder="Contraseña"
+                onChangeText={onChange}
+                value={value}
+                secureTextEntry
+              />
+              {errors.password && <Text style={styles.errorText}>{errors.password.message}</Text>}
+            </>
+          )}
+        />
+
+        <TouchableOpacity style={styles.loginButton} onPress={handleSubmit(onSubmit)}>
+          <Text style={styles.loginButtonText}>Iniciar Sesión</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  )
+}
+
+// Add this to your existing styles
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  container: {
+    flex: 1,
+    backgroundColor: '#FFF',
+  },
+  header: {
+    backgroundColor: '#004270',
     alignItems: 'center',
-    gap: 8,
+    justifyContent: 'center',
+    paddingTop: 80,
+    paddingHorizontal: 10,
+    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 20,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  welcomeText: {
+    color: '#FFF',
+    fontSize: 16,
+    marginBottom: 10,
+    fontWeight: '400',
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  logo1: {
+    width: 156,
+    height: 104,
   },
-});
+  logo: {
+    width: 180,
+    height: 120,
+  },
+  loginContainer: {
+    flex: 1,
+    padding: 20,
+    alignItems: 'center',
+    marginTop: 30,
+  },
+  loginTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#004270',
+    marginBottom: 30,
+  },
+  inputContainer: {
+    flexDirection: 'row', // Orientación horizontal
+    justifyContent: 'flex-end',
+    width: '100%',
+    marginBottom: 15,
+  },
+  input: {
+    width: '100%',
+    height: 50,
+    backgroundColor: 'transparent',
+    paddingHorizontal: 15,
+    marginBottom: 15,
+    borderBottomWidth: 1,
+    borderColor: '#E9B40A',
+  },
+  forgotPassword: {
+    color: '#034872',
+    textDecorationLine: 'underline',
+    marginBottom: 20,
+  },
+  loginButton: {
+    backgroundColor: '#004270',
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    width: '100%',
+    alignItems: 'center',
+  },
+  loginButtonText: {
+    color: '#FFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 12,
+    marginBottom: 10,
+  },
+  formContainer: {
+    width: '100%',
+    paddingHorizontal: 20,
+  },
+})
+
+export default LoginScreen
