@@ -19,3 +19,5 @@ type Vehicle struct {
     KmActual         float32 `json:"km_actual" firestore:"km_actual" validate:"min=0"`
     KmGallon         float32 `json:"km_gallon" firestore:"km_gallon" validate:"min=0"`
 }
+
+

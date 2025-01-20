@@ -8,7 +8,6 @@ type Response struct {
     Data    interface{} `json:"data,omitempty"`
 }
 
-// SendAPIResponse sends a standardized API response
 func SendAPIResponse(c *fiber.Ctx, status int, success bool, message string, data interface{}) error {
     return c.Status(status).JSON(Response{
         Success: success,
@@ -17,12 +16,11 @@ func SendAPIResponse(c *fiber.Ctx, status int, success bool, message string, dat
     })
 }
 
-// SendSuccess is a helper for successful responses
 func SendSuccess(c *fiber.Ctx, message string, data interface{}) error {
     return SendAPIResponse(c, fiber.StatusOK, true, message, data)
 }
 
-// SendError is a helper for error responses
+
 func SendError(c *fiber.Ctx, status int, message string, err error) error {
     errMessage := message
     if err != nil {

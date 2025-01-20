@@ -11,7 +11,6 @@ import (
 
 type VehicleRepository struct{}
 
-// GetAll obtiene todos los vehículos
 func (r *VehicleRepository) GetAll(ctx context.Context) ([]models.Vehicle, error) {
 	client := config.GetFirestoreClient(ctx)
 	defer client.Close()
@@ -45,7 +44,6 @@ func (r *VehicleRepository) Create(ctx context.Context, vehicle *models.Vehicle)
 
     var docRef *firestore.DocumentRef
     if vehicle.ID != "" {
-        // Use specified ID
         docRef = client.Collection("vehicles").Doc(vehicle.ID)
         _, err := docRef.Set(ctx, vehicle)
         if err != nil {
@@ -54,7 +52,6 @@ func (r *VehicleRepository) Create(ctx context.Context, vehicle *models.Vehicle)
         return vehicle.ID, nil
     }
 
-    // Fallback to auto-generated ID
     doc, _, err := client.Collection("vehicles").Add(ctx, vehicle)
     if err != nil {
         return "", err
