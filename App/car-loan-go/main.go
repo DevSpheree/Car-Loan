@@ -35,6 +35,7 @@ func main() {
 	// Configurar rutas
 	routes.SetupAuthRoutes(app)
 	routes.SetupVehicleRoutes(app)
+	routes.SetupApplicationRoutes(app)
 
 	// Iniciar servidor
 	log.Println("Servidor iniciado en http://localhost:" + port)
