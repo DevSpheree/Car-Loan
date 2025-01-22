@@ -2,7 +2,6 @@ package routes
 
 import (
 	"car-loan-go/handlers"
-	// "car-loan-go/middlewares"
 
 	"github.com/gofiber/fiber/v2"
 )

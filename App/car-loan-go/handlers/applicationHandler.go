@@ -46,3 +46,27 @@ func CreateApplication(c *fiber.Ctx) error {
 
 	return utils.SendSuccess(c, "Solicitud creada exitosamente", application)
 }
+
+func UpdateApplicationStatus(c *fiber.Ctx) error {
+    ctx := context.Background()
+    id := c.Params("id")
+    
+    if id == "" {
+        return utils.SendError(c, fiber.StatusBadRequest, "ID de solicitud requerido", nil)
+    }
+
+    // Use Application instead of StatusUpdate
+    update := new(models.Application)
+    if err := c.BodyParser(update); err != nil {
+        return utils.SendError(c, fiber.StatusBadRequest, "Error al procesar los datos", err)
+    }
+
+    if err := services.UpdateApplicationStatus(ctx, id, update.Status); err != nil {
+        return utils.SendError(c, fiber.StatusInternalServerError, "Error al actualizar el estado", err)
+    }
+
+    return utils.SendSuccess(c, "Estado actualizado exitosamente", fiber.Map{
+        "id": id,
+        "status": update.Status,
+    })
+}
