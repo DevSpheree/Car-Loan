@@ -61,3 +61,24 @@ func validateUserRole(ctx context.Context, userID string) error {
     }
     return nil
 }
+
+func UpdateApplicationStatus(ctx context.Context, id string, status string) error {
+    // Create temporary Application to validate status
+    tempApp := &models.Application{
+        Status: status,
+    }
+    
+    if err := validate.StructPartial(tempApp, "Status"); err != nil {
+        return fmt.Errorf("invalid status: %v", err)
+    }
+
+    exists, err := applicationRepo.Exists(ctx, id)
+    if err != nil {
+        return fmt.Errorf("error checking application: %v", err)
+    }
+    if !exists {
+        return fmt.Errorf("application with ID %s not found", id)
+    }
+
+    return applicationRepo.UpdateStatus(ctx, id, status)
+}
