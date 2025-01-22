@@ -11,6 +11,7 @@ type Application struct {
 	Client *User `json:"client" firestore:"-"`
 	Date         time.Time `json:"date" firestore:"date" validate:"required"`
 	Reason 	 string    `json:"reason" firestore:"reason" validate:"required,min=2,max=150"`
+	RejectionReason string `json:"rejection_reason" firestore:"rejection_reason" validate:"max=150"`
 	Destination  string    `json:"destination" firestore:"destination" validate:"required,min=2,max=100"`
 	ReturnDate   time.Time `json:"return_date" firestore:"return_date" validate:"required"`
 	ReturnStatus string    `json:"return_status" firestore:"return_status" validate:"required,oneof=FINALIZADA NO_FINALIZADA"`

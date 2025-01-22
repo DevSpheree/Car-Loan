@@ -6,21 +6,80 @@ import (
 	"car-loan-go/repositories"
 	"context"
 	"fmt"
+
+	"google.golang.org/api/iterator"
 )
 
 var applicationRepo = repositories.ApplicationRepository{}
 
 func GetMyApplications(ctx context.Context, userID string) ([]models.Application, error) {
-    if err := validateUserRole(ctx, userID); err != nil {
-        return nil, err
+    client := config.GetFirestoreClient(ctx)
+    defer client.Close()
+
+    // Get user role
+    userDoc, err := client.Collection("users").Doc(userID).Get(ctx)
+    if err != nil || !userDoc.Exists() {
+        return nil, fmt.Errorf("user with ID %s not found", userID)
     }
 
-    applications, err := applicationRepo.GetMyApplications(ctx, userID)
-    if err != nil {
-        return nil, fmt.Errorf("error fetching applications: %v", err)
+    var userData models.User
+    if err := userDoc.DataTo(&userData); err != nil {
+        return nil, fmt.Errorf("error getting user data: %v", err)
     }
 
-    return applications, nil
+    // For ADMIN users, get all applications
+    if userData.Role == "ADMIN" {
+        iter := client.Collection("applications").Documents(ctx)
+        var applications []models.Application
+
+        for {
+            doc, err := iter.Next()
+            if err == iterator.Done {
+                break
+            }
+            if err != nil {
+                return nil, fmt.Errorf("error fetching applications: %v", err)
+            }
+
+            var application models.Application
+            if err := doc.DataTo(&application); err != nil {
+                return nil, err
+            }
+            application.ID = doc.Ref.ID
+
+            // Get vehicle info
+            vehicleDoc, err := client.Collection("vehicles").Doc(application.VehicleID).Get(ctx)
+            if err != nil {
+                return nil, err
+            }
+            var vehicle models.Vehicle
+            if err := vehicleDoc.DataTo(&vehicle); err != nil {
+                return nil, err
+            }
+            application.VehicleName = vehicle.Brand + " " + vehicle.BrandYear
+
+            // Get client info
+            clientDoc, err := client.Collection("users").Doc(application.ClientID).Get(ctx)
+            if err != nil {
+                return nil, err
+            }
+            var clientData models.User
+            if err := clientDoc.DataTo(&clientData); err != nil {
+                return nil, err
+            }
+            application.Client = &clientData
+
+            applications = append(applications, application)
+        }
+        return applications, nil
+    }
+
+    // For CLIENT role, validate and get only their applications
+    if userData.Role != "CLIENT" {
+        return nil, fmt.Errorf("user with ID %s must have CLIENT or ADMIN role", userID)
+    }
+
+    return applicationRepo.GetMyApplications(ctx, userID)
 }
 
 func CreateApplication(ctx context.Context, application *models.Application) (string, error) {
@@ -62,10 +121,10 @@ func validateUserRole(ctx context.Context, userID string) error {
     return nil
 }
 
-func UpdateApplicationStatus(ctx context.Context, id string, status string) error {
-    // Create temporary Application to validate status
+func UpdateApplicationStatus(ctx context.Context, id string, status string, rejectionReason string) error {
     tempApp := &models.Application{
-        Status: status,
+        Status:          status,
+        RejectionReason: rejectionReason,
     }
     
     if err := validate.StructPartial(tempApp, "Status"); err != nil {
@@ -80,5 +139,13 @@ func UpdateApplicationStatus(ctx context.Context, id string, status string) erro
         return fmt.Errorf("application with ID %s not found", id)
     }
 
-    return applicationRepo.UpdateStatus(ctx, id, status)
+    var rejectionReasonPtr *string
+    if status == "RECHAZADA" {
+        if rejectionReason == "" {
+            return fmt.Errorf("rejection reason is required when status is RECHAZADA")
+        }
+        rejectionReasonPtr = &rejectionReason
+    }
+
+    return applicationRepo.UpdateStatus(ctx, id, status, rejectionReasonPtr)
 }

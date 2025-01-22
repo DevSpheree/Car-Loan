@@ -55,18 +55,22 @@ func UpdateApplicationStatus(c *fiber.Ctx) error {
         return utils.SendError(c, fiber.StatusBadRequest, "ID de solicitud requerido", nil)
     }
 
-    // Use Application instead of StatusUpdate
     update := new(models.Application)
     if err := c.BodyParser(update); err != nil {
         return utils.SendError(c, fiber.StatusBadRequest, "Error al procesar los datos", err)
     }
 
-    if err := services.UpdateApplicationStatus(ctx, id, update.Status); err != nil {
+    if err := services.UpdateApplicationStatus(ctx, id, update.Status, update.RejectionReason); err != nil {
         return utils.SendError(c, fiber.StatusInternalServerError, "Error al actualizar el estado", err)
     }
 
-    return utils.SendSuccess(c, "Estado actualizado exitosamente", fiber.Map{
-        "id": id,
+    response := fiber.Map{
+        "id":     id,
         "status": update.Status,
-    })
+    }
+    if update.RejectionReason != "" {
+        response["rejection_reason"] = update.RejectionReason
+    }
+
+    return utils.SendSuccess(c, "Estado actualizado exitosamente", response)
 }
