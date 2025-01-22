@@ -77,18 +77,26 @@ func (r *ApplicationRepository) Create(ctx context.Context, application *models.
 	return doc.ID, nil
 }
 
-func (r *ApplicationRepository) UpdateStatus(ctx context.Context, id string, status string) error {
-	client := config.GetFirestoreClient(ctx)
-	defer client.Close()
+func (r *ApplicationRepository) UpdateStatus(ctx context.Context, id string, status string, rejectionReason *string) error {
+    client := config.GetFirestoreClient(ctx)
+    defer client.Close()
 
-	_, err := client.Collection("applications").Doc(id).Update(ctx, []firestore.Update{
-		{
-			Path:  "status",
-			Value: status,
-		},
-	})
+    updates := []firestore.Update{
+        {
+            Path:  "status",
+            Value: status,
+        },
+    }
 
-	return err
+    if rejectionReason != nil {
+        updates = append(updates, firestore.Update{
+            Path:  "rejection_reason",
+            Value: *rejectionReason,
+        })
+    }
+
+    _, err := client.Collection("applications").Doc(id).Update(ctx, updates)
+    return err
 }
 
 func (r *ApplicationRepository) Exists(ctx context.Context, id string) (bool, error) {
