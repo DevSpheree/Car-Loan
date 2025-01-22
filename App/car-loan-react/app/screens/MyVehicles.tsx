@@ -33,26 +33,25 @@ export default function MyVehicles({ navigation }) {
             setFilteredVehicles(vehicles);
         } else {
             const filtered = vehicles.filter((vehicle) =>
-                `${vehicle.Brand} ${vehicle.Model}`.toLowerCase().includes(query.toLowerCase())
+                `${vehicle.brand} ${vehicle.brand_year}`.toLowerCase().includes(query.toLowerCase())
             );
             setFilteredVehicles(filtered);
-            console.log(filteredVehicles)
         }
     };
 
     const renderVehicleItem = ({ item }) => (
         <View style={styles.vehicleItem}>
-            {/* Imagen del vehículo (puedes usar un marcador si no hay una URL) */}
+            {/* Imagen del vehículo */}
             <Image
-                source={{ uri: 'https://via.placeholder.com/100' }} // Sustituir por una URL real si existe
+                source={{ uri: 'https://via.placeholder.com/100' }} // Imagen genérica
                 style={styles.vehicleImage}
             />
             <View style={styles.vehicleInfo}>
-                <Text style={styles.vehicleTitle}>{`${item.brand} ${item.model}`}</Text>
-                <Text style={styles.vehicleDetail}>Color: {item.color}</Text>
-                <Text style={styles.vehicleDetail}>Año: {item.year}</Text>
-                <Text style={styles.vehicleDetail}>Capacidad de combustible: {item.fuel_capacity}L</Text>
-                <Text style={styles.vehicleDetail}>Tipo de combustible: {item.fuel_type}</Text>
+                <Text style={styles.vehicleTitle}>{`${item.brand} ${item.brand_year}`}</Text>
+                <Text style={styles.vehicleDetail}>Placa: {item.vehicle_plate || 'N/A'}</Text>
+                <Text style={styles.vehicleDetail}>Responsable: {item.responsible || 'N/A'}</Text>
+                <Text style={styles.vehicleDetail}>Tipo: {item.type || 'N/A'}</Text>
+                <Text style={styles.vehicleDetail}>Ubicación: {item.activity_location || 'N/A'}</Text>
             </View>
             <TouchableOpacity
                 style={styles.viewButton}
@@ -62,8 +61,6 @@ export default function MyVehicles({ navigation }) {
             </TouchableOpacity>
         </View>
     );
-
-
 
     return (
         <View style={styles.container}>
@@ -162,7 +159,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
     },
     viewButtonText: {
-        fontSize: 8,
+        fontSize: 10,
         color: '#fff',
         fontWeight: 'bold',
     },

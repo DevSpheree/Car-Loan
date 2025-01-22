@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     View,
     Text,
@@ -12,53 +12,43 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import * as ImagePicker from "expo-image-picker";
 
 // Esquema de validación con Yup
 const registerVehicleSchema = yup.object({
-    modelo: yup.string().required("El modelo es requerido"),
-    marca: yup.string().required("La marca es requerida"),
-    anio: yup
+    vehicle_plate: yup.string().required("La placa del vehículo es requerida"),
+    brand: yup.string().required("La marca es requerida"),
+    brand_year: yup.string().required("El modelo/año es requerido"),
+    chasis: yup.string().required("El chasis es requerido"),
+    engine: yup.string().required("El motor es requerido"),
+    fuel: yup.string().required("El combustible es requerido"),
+    color: yup.string().required("El color es requerido"),
+    year: yup
         .number()
-        .typeError("El año debe ser un número")
+        .typeError("Debe ser un número")
         .required("El año es requerido")
         .min(1900, "El año debe ser mayor a 1900")
         .max(new Date().getFullYear(), `El año no puede ser mayor al ${new Date().getFullYear()}`),
-    color: yup.string().required("El color es requerido"),
-    kilometrosPorGalon: yup
-        .number()
-        .typeError("Debe ser un número")
-        .required("Los kilómetros por galón son requeridos"),
-    kilometrajeActual: yup
-        .number()
-        .typeError("Debe ser un número")
-        .required("El kilometraje actual es requerido"),
-    tipoCombustible: yup.string().required("El tipo de combustible es requerido"),
-    capacidadCombustible: yup
-        .number()
-        .typeError("Debe ser un número")
-        .required("La capacidad del combustible es requerida"),
-    pesoVehiculo: yup
-        .number()
-        .typeError("Debe ser un número")
-        .required("El peso del vehículo es requerido"),
 });
 
 export default function RegisterVehicle() {
+    const [image, setImage] = React.useState<string | null>(null);
+
+
     const {
         control,
         handleSubmit,
         formState: { errors },
     } = useForm({
         defaultValues: {
-            modelo: "",
-            marca: "",
-            anio: "",
+            vehicle_plate: "",
+            brand: "",
+            brand_year: "",
+            chasis: "",
+            engine: "",
+            fuel: "",
             color: "",
-            kilometrosPorGalon: "",
-            kilometrajeActual: "",
-            tipoCombustible: "",
-            capacidadCombustible: "",
-            pesoVehiculo: "",
+            year: "",
         },
         resolver: yupResolver(registerVehicleSchema),
     });
@@ -71,61 +61,71 @@ export default function RegisterVehicle() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    model: data.modelo,
-                    brand: data.marca,
-                    year: data.anio,
-                    color: data.color,
-                    km_gallon: data.kilometrosPorGalon,
-                    km_actual: data.kilometrajeActual,
-                    fuel_type: data.tipoCombustible,
-                    fuel_capacity: data.capacidadCombustible,
-                    weight: data.pesoVehiculo,
-                    type: "light"
+                    ...data,
+                    type: "light", // Si es requerido
                 }),
             });
 
             if (response.ok) {
-                const responseData = await response.json();
                 Alert.alert("Éxito", "Vehículo registrado correctamente");
-                console.log("Respuesta de la API:", responseData);
             } else {
                 const errorData = await response.json();
                 Alert.alert("Error", errorData.message || "Ocurrió un error al registrar el vehículo");
-                console.error("Error de la API:", errorData);
             }
         } catch (error) {
             Alert.alert("Error", "No se pudo conectar con el servidor");
-            console.error("Error:", error);
         }
+    };
+
+    const handleImagePicker = async () => {
+        const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (!permissionResult.granted) {
+            Alert.alert("Permiso denegado", "Es necesario el permiso para acceder a la galería.");
+            return;
+        }
+
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        if (!result.canceled && result.assets && result.assets.length > 0) {
+            setImage(result.assets[0].uri); // El tipo ahora será un string válido
+        }
+
+    };
+
+    const handleCamera = async () => {
+        const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+        if (!permissionResult.granted) {
+            Alert.alert("Permiso denegado", "Es necesario el permiso para usar la cámara.");
+            return;
+        }
+
+        const result = await ImagePicker.launchCameraAsync({
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        if (!result.canceled && result.assets && result.assets.length > 0) {
+            setImage(result.assets[0].uri); // El tipo ahora será un string válido
+        }
+
     };
 
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.container}>
-                {/* Modelo */}
-                <View style={styles.inputContainer}>
-                    <Text style={styles.label}>Modelo *</Text>
-                    <Controller
-                        control={control}
-                        name="modelo"
-                        render={({ field: { onChange, value } }) => (
-                            <TextInput
-                                style={styles.input}
-                                value={value}
-                                onChangeText={onChange}
-                                placeholder="Ingrese el modelo"
-                            />
-                        )}
-                    />
-                    {errors.modelo && <Text style={styles.errorText}>{errors.modelo.message}</Text>}
-                </View>
 
-                {/* Marca */}
+
                 <View style={styles.inputContainer}>
                     <Text style={styles.label}>Marca *</Text>
                     <Controller
                         control={control}
-                        name="marca"
+                        name="brand"
                         render={({ field: { onChange, value } }) => (
                             <TextInput
                                 style={styles.input}
@@ -135,26 +135,194 @@ export default function RegisterVehicle() {
                             />
                         )}
                     />
-                    {errors.marca && <Text style={styles.errorText}>{errors.marca.message}</Text>}
+                    {errors.brand && <Text style={styles.errorText}>{errors.brand.message}</Text>}
                 </View>
 
-                {/* Año */}
+                {/* Ubicación de la actividad */}
                 <View style={styles.inputContainer}>
-                    <Text style={styles.label}>Año *</Text>
+                    <Text style={styles.label}>Ubicación de Actividad *</Text>
                     <Controller
                         control={control}
-                        name="anio"
+                        name="activity_location"
                         render={({ field: { onChange, value } }) => (
                             <TextInput
                                 style={styles.input}
                                 value={value}
                                 onChangeText={onChange}
-                                placeholder="Ingrese el año"
+                                placeholder="Ingrese la ubicación de actividad"
+                            />
+                        )}
+                    />
+                    {errors.activity_location && (
+                        <Text style={styles.errorText}>{errors.activity_location.message}</Text>
+                    )}
+                </View>
+
+                {/* Marca y Modelo */}
+                <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Modelo *</Text>
+                    <Controller
+                        control={control}
+                        name="brand_year"
+                        render={({ field: { onChange, value } }) => (
+                            <TextInput
+                                style={styles.input}
+                                value={value}
+                                onChangeText={onChange}
+                                placeholder="Ingrese marca y modelo (ej. BLAZER RS AC 3,6 5P 4X4)"
+                            />
+                        )}
+                    />
+                    {errors.brand_year && (
+                        <Text style={styles.errorText}>{errors.brand_year.message}</Text>
+                    )}
+                </View>
+
+                {/* Chasis */}
+                <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Chasis *</Text>
+                    <Controller
+                        control={control}
+                        name="chasis"
+                        render={({ field: { onChange, value } }) => (
+                            <TextInput
+                                style={styles.input}
+                                value={value}
+                                onChangeText={onChange}
+                                placeholder="Ingrese el número de chasis"
+                            />
+                        )}
+                    />
+                    {errors.chasis && <Text style={styles.errorText}>{errors.chasis.message}</Text>}
+                </View>
+
+                {/* Motor */}
+                <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Motor *</Text>
+                    <Controller
+                        control={control}
+                        name="engine"
+                        render={({ field: { onChange, value } }) => (
+                            <TextInput
+                                style={styles.input}
+                                value={value}
+                                onChangeText={onChange}
+                                placeholder="Ingrese el número de motor"
+                            />
+                        )}
+                    />
+                    {errors.engine && <Text style={styles.errorText}>{errors.engine.message}</Text>}
+                </View>
+
+                {/* Combustible */}
+                <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Tipo de Combustible *</Text>
+                    <Controller
+                        control={control}
+                        name="fuel"
+                        render={({ field: { onChange, value } }) => (
+                            <TextInput
+                                style={styles.input}
+                                value={value}
+                                onChangeText={onChange}
+                                placeholder="Ingrese el tipo de combustible"
+                            />
+                        )}
+                    />
+                    {errors.fuel && <Text style={styles.errorText}>{errors.fuel.message}</Text>}
+                </View>
+
+                {/* Número */}
+                <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Número *</Text>
+                    <Controller
+                        control={control}
+                        name="num"
+                        render={({ field: { onChange, value } }) => (
+                            <TextInput
+                                style={styles.input}
+                                value={value}
+                                onChangeText={onChange}
+                                placeholder="Ingrese el número"
                                 keyboardType="numeric"
                             />
                         )}
                     />
-                    {errors.anio && <Text style={styles.errorText}>{errors.anio.message}</Text>}
+                    {errors.num && <Text style={styles.errorText}>{errors.num.message}</Text>}
+                </View>
+
+                {/* Propiedad */}
+                <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Propiedad *</Text>
+                    <Controller
+                        control={control}
+                        name="property"
+                        render={({ field: { onChange, value } }) => (
+                            <TextInput
+                                style={styles.input}
+                                value={value}
+                                onChangeText={onChange}
+                                placeholder="Ingrese la propiedad"
+                            />
+                        )}
+                    />
+                    {errors.property && <Text style={styles.errorText}>{errors.property.message}</Text>}
+                </View>
+
+                {/* Responsable */}
+                <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Responsable *</Text>
+                    <Controller
+                        control={control}
+                        name="responsible"
+                        render={({ field: { onChange, value } }) => (
+                            <TextInput
+                                style={styles.input}
+                                value={value}
+                                onChangeText={onChange}
+                                placeholder="Ingrese el responsable"
+                            />
+                        )}
+                    />
+                    {errors.responsible && <Text style={styles.errorText}>{errors.responsible.message}</Text>}
+                </View>
+
+                {/* Tipo de Vehículo */}
+                <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Tipo de Vehículo *</Text>
+                    <Controller
+                        control={control}
+                        name="type"
+                        render={({ field: { onChange, value } }) => (
+                            <TextInput
+                                style={styles.input}
+                                value={value}
+                                onChangeText={onChange}
+                                placeholder="Ingrese el tipo de vehículo (ej. JEEP)"
+                            />
+                        )}
+                    />
+                    {errors.type && <Text style={styles.errorText}>{errors.type.message}</Text>}
+                </View>
+
+                {/* Placa */}
+                <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Placa *</Text>
+                    <Controller
+                        control={control}
+                        name="vehicle_plate"
+                        render={({ field: { onChange, value } }) => (
+                            <TextInput
+                                style={styles.input}
+                                value={value}
+                                onChangeText={onChange}
+                                placeholder="Ingrese la placa del vehículo"
+                            />
+                        )}
+                    />
+                    {errors.vehicle_plate && (
+                        <Text style={styles.errorText}>{errors.vehicle_plate.message}</Text>
+                    )}
                 </View>
 
                 {/* Color */}
@@ -168,31 +336,50 @@ export default function RegisterVehicle() {
                                 style={styles.input}
                                 value={value}
                                 onChangeText={onChange}
-                                placeholder="Ingrese el color"
+                                placeholder="Ingrese el color del vehículo"
                             />
                         )}
                     />
                     {errors.color && <Text style={styles.errorText}>{errors.color.message}</Text>}
                 </View>
 
-                {/* Kilómetros por galón */}
+                {/* Año */}
                 <View style={styles.inputContainer}>
-                    <Text style={styles.label}>Kilómetros por galón *</Text>
+                    <Text style={styles.label}>Año *</Text>
                     <Controller
                         control={control}
-                        name="kilometrosPorGalon"
+                        name="year"
                         render={({ field: { onChange, value } }) => (
                             <TextInput
                                 style={styles.input}
                                 value={value}
                                 onChangeText={onChange}
-                                placeholder="Ingrese los kilómetros por galón"
+                                placeholder="Ingrese el año"
                                 keyboardType="numeric"
                             />
                         )}
                     />
-                    {errors.kilometrosPorGalon && (
-                        <Text style={styles.errorText}>{errors.kilometrosPorGalon.message}</Text>
+                    {errors.year && <Text style={styles.errorText}>{errors.year.message}</Text>}
+                </View>
+
+                {/* Capacidad de Combustible */}
+                <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Capacidad de Combustible *</Text>
+                    <Controller
+                        control={control}
+                        name="fuel_capacity"
+                        render={({ field: { onChange, value } }) => (
+                            <TextInput
+                                style={styles.input}
+                                value={value}
+                                onChangeText={onChange}
+                                placeholder="Ingrese la capacidad de combustible"
+                                keyboardType="numeric"
+                            />
+                        )}
+                    />
+                    {errors.fuel_capacity && (
+                        <Text style={styles.errorText}>{errors.fuel_capacity.message}</Text>
                     )}
                 </View>
 
@@ -201,7 +388,7 @@ export default function RegisterVehicle() {
                     <Text style={styles.label}>Kilometraje Actual *</Text>
                     <Controller
                         control={control}
-                        name="kilometrajeActual"
+                        name="km_actual"
                         render={({ field: { onChange, value } }) => (
                             <TextInput
                                 style={styles.input}
@@ -212,82 +399,48 @@ export default function RegisterVehicle() {
                             />
                         )}
                     />
-                    {errors.kilometrajeActual && (
-                        <Text style={styles.errorText}>{errors.kilometrajeActual.message}</Text>
+                    {errors.km_actual && (
+                        <Text style={styles.errorText}>{errors.km_actual.message}</Text>
                     )}
                 </View>
 
-                {/* Tipo de Combustible */}
+                {/* Kilómetros por Galón */}
                 <View style={styles.inputContainer}>
-                    <Text style={styles.label}>Tipo de Combustible *</Text>
+                    <Text style={styles.label}>Kilómetros por Galón *</Text>
                     <Controller
                         control={control}
-                        name="tipoCombustible"
+                        name="km_gallon"
                         render={({ field: { onChange, value } }) => (
                             <TextInput
                                 style={styles.input}
                                 value={value}
                                 onChangeText={onChange}
-                                placeholder="Ingrese el tipo de combustible"
-                            />
-                        )}
-                    />
-                    {errors.tipoCombustible && (
-                        <Text style={styles.errorText}>{errors.tipoCombustible.message}</Text>
-                    )}
-                </View>
-
-                {/* Capacidad del Combustible */}
-                <View style={styles.inputContainer}>
-                    <Text style={styles.label}>Capacidad del Combustible *</Text>
-                    <Controller
-                        control={control}
-                        name="capacidadCombustible"
-                        render={({ field: { onChange, value } }) => (
-                            <TextInput
-                                style={styles.input}
-                                value={value}
-                                onChangeText={onChange}
-                                placeholder="Ingrese la capacidad del combustible"
+                                placeholder="Ingrese los kilómetros por galón"
                                 keyboardType="numeric"
                             />
                         )}
                     />
-                    {errors.capacidadCombustible && (
-                        <Text style={styles.errorText}>{errors.capacidadCombustible.message}</Text>
+                    {errors.km_gallon && (
+                        <Text style={styles.errorText}>{errors.km_gallon.message}</Text>
                     )}
                 </View>
-
-                {/* Peso del Vehículo */}
-                <View style={styles.inputContainer}>
-                    <Text style={styles.label}>Peso del Vehículo *</Text>
-                    <Controller
-                        control={control}
-                        name="pesoVehiculo"
-                        render={({ field: { onChange, value } }) => (
-                            <TextInput
-                                style={styles.input}
-                                value={value}
-                                onChangeText={onChange}
-                                placeholder="Ingrese el peso del vehículo"
-                                keyboardType="numeric"
-                            />
-                        )}
-                    />
-                    {errors.pesoVehiculo && (
-                        <Text style={styles.errorText}>{errors.pesoVehiculo.message}</Text>
-                    )}
-                </View>
-
-                {/* Imagen del Vehículo */}
-                <View style={styles.imageUpload}>
+                {/* Ejemplo de imagen */}
+                <TouchableOpacity
+                    style={styles.imageUpload}
+                    onPress={() => {
+                        Alert.alert("Seleccionar imagen", "Elige una opción", [
+                            { text: "Galería", onPress: handleImagePicker },
+                            { text: "Cámara", onPress: handleCamera },
+                            { text: "Cancelar", style: "cancel" },
+                        ]);
+                    }}
+                >
                     <Image
                         source={require("../../assets/images/placeholder.png")} // Cambia a tu icono de imagen
                         style={styles.image}
                     />
-                </View>
+                </TouchableOpacity>
 
-                {/* Botón Aceptar */}
                 <TouchableOpacity style={styles.submitButton} onPress={handleSubmit(onSubmit)}>
                     <Text style={styles.submitButtonText}>Aceptar</Text>
                 </TouchableOpacity>
@@ -299,10 +452,10 @@ export default function RegisterVehicle() {
 const styles = StyleSheet.create({
     scrollContainer: {
         flexGrow: 1,
+        backgroundColor:"#FFF",
     },
     container: {
         flex: 1,
-        backgroundColor: "#FFF",
         padding: 20,
     },
     inputContainer: {
@@ -311,7 +464,6 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 14,
         color: "#004270",
-        marginBottom: 5,
     },
     input: {
         borderWidth: 1,
@@ -319,23 +471,6 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         padding: 10,
         fontSize: 16,
-    },
-    submitButton: {
-        backgroundColor: "#004270",
-        padding: 15,
-        borderRadius: 8,
-        alignItems: "center",
-        marginTop: 20,
-    },
-    submitButtonText: {
-        color: "#FFF",
-        fontSize: 16,
-        fontWeight: "bold",
-    },
-    errorText: {
-        color: "red",
-        fontSize: 12,
-        marginTop: 5,
     },
     imageUpload: {
         alignItems: "center",
@@ -352,5 +487,25 @@ const styles = StyleSheet.create({
     image: {
         width: 60,
         height: 60,
+    },
+    uploadText: {
+        color: "#888",
+        fontSize: 16,
+    },
+    submitButton: {
+        backgroundColor: "#004270",
+        padding: 15,
+        borderRadius: 8,
+        alignItems: "center",
+    },
+    submitButtonText: {
+        color: "#FFF",
+        fontSize: 16,
+        fontWeight: "bold",
+    },
+    errorText: {
+        color: "red",
+        fontSize: 12,
+        marginTop: 5,
     },
 });
