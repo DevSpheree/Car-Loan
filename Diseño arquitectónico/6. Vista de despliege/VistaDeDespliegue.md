@@ -15,7 +15,7 @@ Mobile API Gateway Module: Módulo que gestiona las solicitudes REST API entre e
 
 ## 2. Servidor de Aplicación
 
-### Función: Alberga la lógica de negocio y conecta con las bases de datos.
+unción: Alberga la lógica de negocio y conecta con las bases de datos.
 
 Componentes:
 Servicio de Autenticación y Búsqueda de Usuarios:
