@@ -16,8 +16,7 @@ type Vehicle struct {
 	Color            string  `json:"color" firestore:"color" validate:"required,min=1,max=30"`
 	Year             int     `json:"year" firestore:"year" validate:"required,min=1900,max=2025"`
 	FuelCapacity     int     `json:"fuel_capacity" firestore:"fuel_capacity" validate:"min=0"`
-    KmActual         float32 `json:"km_actual" firestore:"km_actual" validate:"min=0"`
-    KmGallon         float32 `json:"km_gallon" firestore:"km_gallon" validate:"min=0"`
+	KmActual         float32 `json:"km_actual" firestore:"km_actual" validate:"min=0"`
+	KmGallon         float32 `json:"km_gallon" firestore:"km_gallon" validate:"min=0"`
+	ImgURL           string  `json:"img_url" firestore:"img_url"`
 }
-
-

@@ -16,7 +16,6 @@ func GetMyApplications(ctx context.Context, userID string) ([]models.Application
     client := config.GetFirestoreClient(ctx)
     defer client.Close()
 
-    // Get user role
     userDoc, err := client.Collection("users").Doc(userID).Get(ctx)
     if err != nil || !userDoc.Exists() {
         return nil, fmt.Errorf("user with ID %s not found", userID)
@@ -27,7 +26,6 @@ func GetMyApplications(ctx context.Context, userID string) ([]models.Application
         return nil, fmt.Errorf("error getting user data: %v", err)
     }
 
-    // For ADMIN users, get all applications
     if userData.Role == "ADMIN" {
         iter := client.Collection("applications").Documents(ctx)
         var applications []models.Application
@@ -74,7 +72,6 @@ func GetMyApplications(ctx context.Context, userID string) ([]models.Application
         return applications, nil
     }
 
-    // For CLIENT role, validate and get only their applications
     if userData.Role != "CLIENT" {
         return nil, fmt.Errorf("user with ID %s must have CLIENT or ADMIN role", userID)
     }
