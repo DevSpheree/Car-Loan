@@ -77,7 +77,7 @@ func (r *ApplicationRepository) Create(ctx context.Context, application *models.
 	return doc.ID, nil
 }
 
-func (r *ApplicationRepository) UpdateStatus(ctx context.Context, id string, status string, rejectionReason *string) error {
+func (r *ApplicationRepository) UpdateStatus(ctx context.Context, id string, status string, reason string) error {
     client := config.GetFirestoreClient(ctx)
     defer client.Close()
 
@@ -88,10 +88,16 @@ func (r *ApplicationRepository) UpdateStatus(ctx context.Context, id string, sta
         },
     }
 
-    if rejectionReason != nil {
+    switch status {
+    case "RECHAZADA":
         updates = append(updates, firestore.Update{
             Path:  "rejection_reason",
-            Value: *rejectionReason,
+            Value: reason,
+        })
+    case "CANCELADA":
+        updates = append(updates, firestore.Update{
+            Path:  "cancel_reason",
+            Value: reason,
         })
     }
 
