@@ -15,6 +15,7 @@ type Application struct {
 	Destination  string    `json:"destination" firestore:"destination" validate:"required,min=2,max=100"`
 	ReturnDate   time.Time `json:"return_date" firestore:"return_date" validate:"required"`
 	ReturnStatus string    `json:"return_status" firestore:"return_status" validate:"required,oneof=FINALIZADA NO_FINALIZADA"`
-	Status       string    `json:"status" firestore:"status" validate:"required,oneof=PENDIENTE APROBADA RECHAZADA"`
+	Status       string    `json:"status" firestore:"status" validate:"required,oneof=PENDIENTE APROBADA RECHAZADA CANCELADA"`
 	UsageTime    int       `json:"usage_time" firestore:"usage_time" validate:"required"`
+	CancelReason string    `json:"cancel_reason" firestore:"cancel_reason" validate:"max=150"`
 }

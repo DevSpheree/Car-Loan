@@ -10,23 +10,23 @@ import (
 )
 
 func GetMyApplications(c *fiber.Ctx) error {
-    ctx := context.Background()
-    userID := c.Query("user_id")
+	ctx := context.Background()
+	userID := c.Query("user_id")
 
-    if userID == "" {
-        return utils.SendError(c, fiber.StatusBadRequest, "User ID is required", nil)
-    }
+	if userID == "" {
+		return utils.SendError(c, fiber.StatusBadRequest, "User ID is required", nil)
+	}
 
-    applications, err := services.GetMyApplications(ctx, userID)
-    if err != nil {
-        return utils.SendError(c, fiber.StatusInternalServerError, "Error al obtener solicitudes", err)
-    }
+	applications, err := services.GetMyApplications(ctx, userID)
+	if err != nil {
+		return utils.SendError(c, fiber.StatusInternalServerError, "Error al obtener solicitudes", err)
+	}
 
 	if len(applications) == 0 {
-        return utils.SendSuccess(c, "El cliente especificado no tiene solicitudes registradas", applications)
-    }
+		return utils.SendSuccess(c, "El cliente especificado no tiene solicitudes registradas", applications)
+	}
 
-    return utils.SendSuccess(c, "Solicitudes obtenidas con éxito", applications)
+	return utils.SendSuccess(c, "Solicitudes obtenidas con éxito", applications)
 }
 
 func CreateApplication(c *fiber.Ctx) error {
@@ -49,9 +49,14 @@ func CreateApplication(c *fiber.Ctx) error {
 
 func UpdateApplicationStatus(c *fiber.Ctx) error {
     ctx := context.Background()
-    id := c.Params("id")
-    
-    if id == "" {
+    userId := c.Query("user_id")
+    applicationId := c.Query("application_id")
+
+    if userId == "" {
+        return utils.SendError(c, fiber.StatusBadRequest, "ID de usuario requerido", nil)
+    }
+
+    if applicationId == "" {
         return utils.SendError(c, fiber.StatusBadRequest, "ID de solicitud requerido", nil)
     }
 
@@ -60,16 +65,29 @@ func UpdateApplicationStatus(c *fiber.Ctx) error {
         return utils.SendError(c, fiber.StatusBadRequest, "Error al procesar los datos", err)
     }
 
-    if err := services.UpdateApplicationStatus(ctx, id, update.Status, update.RejectionReason); err != nil {
+    if update.Status == "" {
+        return utils.SendError(c, fiber.StatusBadRequest, "El estado es requerido", nil)
+    }
+
+    if err := services.UpdateApplicationStatus(ctx,
+        userId,
+        applicationId,
+        update.Status,
+        update.RejectionReason,
+        update.CancelReason); err != nil {
         return utils.SendError(c, fiber.StatusInternalServerError, "Error al actualizar el estado", err)
     }
 
     response := fiber.Map{
-        "id":     id,
-        "status": update.Status,
+        "application_id": applicationId,
+        "status":        update.Status,
     }
-    if update.RejectionReason != "" {
+
+    switch update.Status {
+    case "RECHAZADA":
         response["rejection_reason"] = update.RejectionReason
+    case "CANCELADA":
+        response["cancel_reason"] = update.CancelReason
     }
 
     return utils.SendSuccess(c, "Estado actualizado exitosamente", response)

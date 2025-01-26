@@ -13,136 +13,161 @@ import (
 var applicationRepo = repositories.ApplicationRepository{}
 
 func GetMyApplications(ctx context.Context, userID string) ([]models.Application, error) {
-    client := config.GetFirestoreClient(ctx)
-    defer client.Close()
+	client := config.GetFirestoreClient(ctx)
+	defer client.Close()
 
-    userDoc, err := client.Collection("users").Doc(userID).Get(ctx)
-    if err != nil || !userDoc.Exists() {
-        return nil, fmt.Errorf("user with ID %s not found", userID)
-    }
+	userRole, err := getUserRole(ctx, userID)
+	if err != nil {
+		return nil, fmt.Errorf("error validando el rol del usuario: %v", err)
+	}
 
-    var userData models.User
-    if err := userDoc.DataTo(&userData); err != nil {
-        return nil, fmt.Errorf("error getting user data: %v", err)
-    }
+	if userRole == "ADMIN" {
+		iter := client.Collection("applications").Documents(ctx)
+		var applications []models.Application
 
-    if userData.Role == "ADMIN" {
-        iter := client.Collection("applications").Documents(ctx)
-        var applications []models.Application
+		for {
+			doc, err := iter.Next()
+			if err == iterator.Done {
+				break
+			}
+			if err != nil {
+				return nil, fmt.Errorf("error fetching applications: %v", err)
+			}
 
-        for {
-            doc, err := iter.Next()
-            if err == iterator.Done {
-                break
-            }
-            if err != nil {
-                return nil, fmt.Errorf("error fetching applications: %v", err)
-            }
+			var application models.Application
+			if err := doc.DataTo(&application); err != nil {
+				return nil, err
+			}
+			application.ID = doc.Ref.ID
 
-            var application models.Application
-            if err := doc.DataTo(&application); err != nil {
-                return nil, err
-            }
-            application.ID = doc.Ref.ID
+			// Get vehicle info
+			vehicleDoc, err := client.Collection("vehicles").Doc(application.VehicleID).Get(ctx)
+			if err != nil {
+				return nil, err
+			}
+			var vehicle models.Vehicle
+			if err := vehicleDoc.DataTo(&vehicle); err != nil {
+				return nil, err
+			}
+			application.VehicleName = vehicle.Brand + " " + vehicle.BrandYear
 
-            // Get vehicle info
-            vehicleDoc, err := client.Collection("vehicles").Doc(application.VehicleID).Get(ctx)
-            if err != nil {
-                return nil, err
-            }
-            var vehicle models.Vehicle
-            if err := vehicleDoc.DataTo(&vehicle); err != nil {
-                return nil, err
-            }
-            application.VehicleName = vehicle.Brand + " " + vehicle.BrandYear
+			// Get client info
+			clientDoc, err := client.Collection("users").Doc(application.ClientID).Get(ctx)
+			if err != nil {
+				return nil, err
+			}
+			var clientData models.User
+			if err := clientDoc.DataTo(&clientData); err != nil {
+				return nil, err
+			}
+			application.Client = &clientData
 
-            // Get client info
-            clientDoc, err := client.Collection("users").Doc(application.ClientID).Get(ctx)
-            if err != nil {
-                return nil, err
-            }
-            var clientData models.User
-            if err := clientDoc.DataTo(&clientData); err != nil {
-                return nil, err
-            }
-            application.Client = &clientData
+			applications = append(applications, application)
+		}
+		return applications, nil
+	}
 
-            applications = append(applications, application)
-        }
-        return applications, nil
-    }
+	if userRole != "CLIENT" {
+		return nil, fmt.Errorf("user with ID %s must have CLIENT or ADMIN role", userID)
+	}
 
-    if userData.Role != "CLIENT" {
-        return nil, fmt.Errorf("user with ID %s must have CLIENT or ADMIN role", userID)
-    }
-
-    return applicationRepo.GetMyApplications(ctx, userID)
+	return applicationRepo.GetMyApplications(ctx, userID)
 }
 
 func CreateApplication(ctx context.Context, application *models.Application) (string, error) {
-    application.Status = "PENDIENTE"
-    application.ReturnStatus = "NO_FINALIZADA"
+	application.Status = "PENDIENTE"
+	application.ReturnStatus = "NO_FINALIZADA"
 
-    if err := validate.Struct(application); err != nil {
-        return "", err
-    }
+	if err := validate.Struct(application); err != nil {
+		return "", err
+	}
 
-    if err := validateVehicleExists(ctx, application.VehicleID); err != nil {
-        return "", err
-    }
+	if err := validateVehicleExists(ctx, application.VehicleID); err != nil {
+		return "", err
+	}
 
-    if err := validateUserRole(ctx, application.ClientID); err != nil {
-        return "", err
-    }
+	userRole, err := getUserRole(ctx, application.ClientID)
+	if err != nil {
+		return "", fmt.Errorf("error validando el rol del usuario: %v", err)
+	}
+	if userRole != "CLIENT" {
+		return "", fmt.Errorf("el usuario con ID: %s debe tener rol de cliente", application.ClientID)
+	}
 
-    return applicationRepo.Create(ctx, application)
+	return applicationRepo.Create(ctx, application)
 }
 
-func validateUserRole(ctx context.Context, userID string) error {
-    client := config.GetFirestoreClient(ctx)
-    defer client.Close()
+// En services/applicationService.go
+func UpdateApplicationStatus(
+    ctx context.Context, 
+    userId string,
+    application_id string, 
+    status string,
+    rejectionReason string,
+    cancelReason string) error {
 
-    clientDoc, err := client.Collection("users").Doc(userID).Get(ctx)
-    if err != nil || !clientDoc.Exists() {
-        return fmt.Errorf("client with ID %s not found", userID)
-    }
-
-    var clientData models.User
-    if err := clientDoc.DataTo(&clientData); err != nil {
-        return fmt.Errorf("error getting client data: %v", err)
-    }
-
-    if clientData.Role != "CLIENT" {
-        return fmt.Errorf("client with ID %s must have CLIENT role", userID)
-    }
-    return nil
-}
-
-func UpdateApplicationStatus(ctx context.Context, id string, status string, rejectionReason string) error {
     tempApp := &models.Application{
         Status:          status,
         RejectionReason: rejectionReason,
-    }
-    
-    if err := validate.StructPartial(tempApp, "Status"); err != nil {
-        return fmt.Errorf("invalid status: %v", err)
+        CancelReason:    cancelReason,
     }
 
-    exists, err := applicationRepo.Exists(ctx, id)
+    if err := validate.StructPartial(tempApp, "Status"); err != nil {
+        return fmt.Errorf("estado invalido: %v", err)
+    }
+
+    exists, err := applicationRepo.Exists(ctx, application_id)
     if err != nil {
         return fmt.Errorf("error checking application: %v", err)
     }
     if !exists {
-        return fmt.Errorf("application with ID %s not found", id)
+        return fmt.Errorf("application with ID %s not found", application_id)
     }
 
-    var rejectionReasonPtr *string
-    if status == "RECHAZADA" {
-        if rejectionReason == "" {
-            return fmt.Errorf("rejection reason is required when status is RECHAZADA")
+    userRole, err := getUserRole(ctx, userId)
+    if err != nil {
+        return fmt.Errorf("error obteniendo el rol del usuario: %v", err)
+    }
+
+    if userRole == "CLIENT" {
+        if status != "CANCELADA" {
+            return fmt.Errorf("el cliente solo puede cancelar solicitudes")
         }
-        rejectionReasonPtr = &rejectionReason
+        if cancelReason == "" {
+            return fmt.Errorf("el motivo de la cancelacion es requerido")
+        }
+        return applicationRepo.UpdateStatus(ctx, application_id, status, cancelReason)
     }
 
-    return applicationRepo.UpdateStatus(ctx, id, status, rejectionReasonPtr)
+    if userRole == "ADMIN" {
+        if status == "RECHAZADA" {
+            if rejectionReason == "" {
+                return fmt.Errorf("la razon de rechazo es requerida")
+            }
+            return applicationRepo.UpdateStatus(ctx, application_id, status, rejectionReason)
+        }
+        // Si el admin aprueba la solicitud
+        if status == "APROBADA" {
+            return applicationRepo.UpdateStatus(ctx, application_id, status, "")
+        }
+    }
+
+    return fmt.Errorf("operación no permitida para el rol %s", userRole)
+}
+
+func getUserRole(ctx context.Context, userID string) (string, error) {
+	client := config.GetFirestoreClient(ctx)
+	defer client.Close()
+
+	userDoc, err := client.Collection("users").Doc(userID).Get(ctx)
+	if err != nil || !userDoc.Exists() {
+		return "", fmt.Errorf("usuario con ID %s no encontrado", userID)
+	}
+
+	var userData models.User
+	if err := userDoc.DataTo(&userData); err != nil {
+		return "", fmt.Errorf("error obteniendo los datos del usuario: %v", err)
+	}
+
+	return userData.Role, nil
 }
