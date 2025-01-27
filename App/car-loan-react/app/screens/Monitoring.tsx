@@ -30,7 +30,7 @@ export default function Monitoring({ navigation }) {
     }, []);
 
     useEffect(() => {
-        console.log('Vehicles state updated:', vehicles);
+
     }, [vehicles]);
 
     const renderVehicle = ({ item }) => (
