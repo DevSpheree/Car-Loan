@@ -43,7 +43,7 @@ export default function MyVehicles({ navigation }) {
         <View style={styles.vehicleItem}>
             {/* Imagen del vehículo */}
             <Image
-                source={{ uri: 'https://via.placeholder.com/100' }} // Imagen genérica
+                source={{ uri: item.img_url || 'https://via.placeholder.com/100' }} // Imagen genérica
                 style={styles.vehicleImage}
             />
             <View style={styles.vehicleInfo}>

@@ -13,19 +13,20 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import ReserveVehicle from "@/app/screens/ReserveVehicle";
 import SelectDestination from "@/app/screens/SelectDestination";
 import ConfirmReservation from "@/app/screens/ConfirmReservation";
-import Requests from "@/app/screens/Solicitudes";
+import Requests, {RejectReason, RequestDetails} from "@/app/screens/Solicitudes";
+import {useNavigation} from "expo-router";
 
 const Drawer = createDrawerNavigator();
 
 function CustomDrawerContent(props) {
     const [isVehiclesExpanded, setVehiclesExpanded] = useState(false);
     const [userRole, setUserRole] = useState<string | null>(null);
-
+    let role;
     useEffect(() => {
         const fetchRole = async () => {
             try {
-                const role = await AsyncStorage.getItem('role');
-                setUserRole(role ?? null);
+                 role = await AsyncStorage.getItem('role');
+                setUserRole(role);
             } catch (error) {
                 console.error('Error obteniendo el rol del usuario:', error);
                 setUserRole(null);
@@ -72,7 +73,7 @@ function CustomDrawerContent(props) {
             ) : userRole === 'CLIENT' ? (
                 <>
                     <DrawerItem label="Principal" onPress={() => props.navigation.navigate('Mis Vehículos')} />
-                    <DrawerItem label="Mis Reservas" onPress={() => props.navigation.navigate('Mis Reservas')} />
+                    <DrawerItem label="Mis Reservas" onPress={() => props.navigation.navigate('Solicitudes')} />
                 </>
             ) : null}
             <View style={styles.logoutContainer}>
@@ -99,12 +100,15 @@ export default function Layout() {
                 },
             }}
         >
+
             {/* Pantalla Login */}
             <Drawer.Screen
                 name="Login"
                 component={Login}
                 options={{
                     headerShown: false, // Ocultar el encabezado
+                    swipeEnabled: false, // Deshabilitar el deslizamiento del drawer
+                    drawerLockMode: 'locked-closed', // Bloquear el acceso al menú
                 }}
             />
 
@@ -251,6 +255,36 @@ export default function Layout() {
                     headerShown: false,
                     drawerItemStyle: { display: 'none' }, // Ocultar del menú principal
                 }}
+            />
+
+            <Drawer.Screen
+                name="RequestDetails"
+                component={RequestDetails}
+                options={({ navigation }) => ({
+                    headerLeft: () => (
+                        <TouchableOpacity
+                            style={{ marginLeft: 10 }}
+                            onPress={() => navigation.navigate('Mis Vehículos')} // Botón de regreso al Dashboard
+                        >
+                            <Text style={{ fontSize: 24, color: '#004270' }}>{"<"}</Text>
+                        </TouchableOpacity>
+                    ),
+                })}
+            />
+
+            <Drawer.Screen
+                name="RejectReason"
+                component={RejectReason}
+                options={({ navigation }) => ({
+                    headerLeft: () => (
+                        <TouchableOpacity
+                            style={{ marginLeft: 10 }}
+                            onPress={() => navigation.navigate('Solicitudes')} // Botón de regreso al Dashboard
+                        >
+                            <Text style={{ fontSize: 24, color: '#004270' }}>{"<"}</Text>
+                        </TouchableOpacity>
+                    ),
+                })}
             />
 
 

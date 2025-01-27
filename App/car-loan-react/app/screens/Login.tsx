@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
     View,
     Text,
@@ -41,6 +41,24 @@ const LoginScreen = ({ navigation }) => {
         },
         resolver: yupResolver(loginSchema),
     });
+    const [userRole, setUserRole] = useState<string | null>(null);
+
+    useEffect(() => {
+        const checkUserStatus = async () => {
+            const idToken = await AsyncStorage.getItem('idToken');
+            const role = await AsyncStorage.getItem('role');
+            if (idToken && role) {
+                setUserRole(role);
+                if (role === 'ADMIN') {
+                    navigation.reset({ index: 0, routes: [{ name: 'Dashboard' }] });
+                } else if (role === 'CLIENT') {
+                    navigation.reset({ index: 0, routes: [{ name: 'Mis Vehículos' }] });
+                }
+            }
+        };
+
+        checkUserStatus();
+    }, [navigation]);
 
     const handleLogin = async (data) => {
         const { email, password } = data;
@@ -49,32 +67,31 @@ const LoginScreen = ({ navigation }) => {
             const idToken = await userCredential.user.getIdToken();
             const uid = userCredential.user.uid;
 
-            await AsyncStorage.setItem("idToken", idToken);
-            await AsyncStorage.setItem("uid", uid);
+            await AsyncStorage.setItem('idToken', idToken);
+            await AsyncStorage.setItem('uid', uid);
 
-            const userDocRef = doc(db, "users", uid); // Cambia "users" por el nombre de tu colección
+            const userDocRef = doc(db, 'users', uid);
             const userDoc = await getDoc(userDocRef);
 
             if (userDoc.exists()) {
-                const role = userDoc.data()?.role; // Recupera el rol desde Firestore
-                await AsyncStorage.setItem("role", role); // Guarda el rol en AsyncStorage
-
-                if (role === "ADMIN") {
-                    navigation.reset({ index: 0, routes: [{ name: "Dashboard" }] });
-                } else if (role === "CLIENT") {
-                    navigation.reset({ index: 0, routes: [{ name: "Mis Vehículos" }] });
+                const role = userDoc.data()?.role;
+                await AsyncStorage.setItem('role', role);
+                setUserRole(role);
+                if (role === 'ADMIN') {
+                    navigation.reset({ index: 0, routes: [{ name: 'Dashboard' }] });
+                } else if (role === 'CLIENT') {
+                    navigation.reset({ index: 0, routes: [{ name: 'Mis Vehículos' }] });
                 } else {
-                    Alert.alert("Error", "Rol de usuario no reconocido.");
+                    Alert.alert('Error', 'Rol de usuario no reconocido.');
                 }
             } else {
-                Alert.alert("Error", "No se encontró información del usuario.");
+                Alert.alert('Error', 'No se encontró información del usuario.');
             }
         } catch (error) {
-            console.error("Login error:", error);
-            Alert.alert("Error", "No se pudo iniciar sesión. Verifica tus credenciales.");
+            console.error('Login error:', error);
+            Alert.alert('Error', 'No se pudo iniciar sesión. Verifica tus credenciales.');
         }
     };
-
 
     return (
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>

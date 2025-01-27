@@ -39,7 +39,7 @@ export default function VehicleDetails({ route, navigation }) {
         <View style={styles.container}>
             {/* Imagen genérica */}
             <Image
-                source={{ uri: 'https://acroadtrip.blob.core.windows.net/catalogo-imagenes/xl/RT_V_253bb2bf37834fcc94aab18693c17252.webp' }}
+                source={{ uri: vehicle.img_url || 'https://acroadtrip.blob.core.windows.net/catalogo-imagenes/xl/RT_V_253bb2bf37834fcc94aab18693c17252.webp' }}
                 style={styles.vehicleImage}
             />
 
