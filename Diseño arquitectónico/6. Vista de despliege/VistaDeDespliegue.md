@@ -8,14 +8,17 @@ Un *diagrama de despliegue* ayuda a modelar el aspecto físico de un sistema de 
 
 ## 1. Teléfono Móvil
 
-Función: Representa el dispositivo móvil utilizado por los usuarios finales (administradores o clientes).
+Función: 
+Representa el dispositivo móvil utilizado por los usuarios finales (administradores o clientes).
+
 Componentes:
 UTPL - Car Loan: Es la interfaz móvil (aplicación) que permite a los usuarios interactuar con el sistema.
 Mobile API Gateway Module: Módulo que gestiona las solicitudes REST API entre el cliente y el servidor de aplicación.
 
 ## 2. Servidor de Aplicación
 
-unción: Alberga la lógica de negocio y conecta con las bases de datos.
+Función: 
+Alberga la lógica de negocio y conecta con las bases de datos.
 
 Componentes:
 Servicio de Autenticación y Búsqueda de Usuarios:
@@ -39,7 +42,9 @@ Conecta con la Base de Datos de Devoluciones en Firebase.
 
 ## 3. Firebase (Firestore)
 
-Función: Actúa como la infraestructura de base de datos en la nube, proporcionando almacenamiento para los datos críticos del sistema.
+Función: 
+Actúa como la infraestructura de base de datos en la nube, proporcionando almacenamiento para los datos críticos del sistema.
+
 Bases de Datos:
 Base de Datos de Usuarios: Información de autenticación y usuarios.
 Base de Datos de Vehículos: Información sobre el catálogo de vehículos.
@@ -48,7 +53,9 @@ Base de Datos de Devoluciones: Datos sobre las devoluciones realizadas.
 
 ## 4. Telemetría
 
-Función: Nodo independiente para la gestión de datos de ubicación en tiempo real de los vehículos.
+Función: 
+Nodo independiente para la gestión de datos de ubicación en tiempo real de los vehículos.
+
 Componente: Servicio de Ubicación del Vehículo.
 Ofrece información de ubicación y telemetría de los vehículos a través de REST API.
 Podría interactuar con otros servicios en el servidor de aplicación.
