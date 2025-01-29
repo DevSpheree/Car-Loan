@@ -97,7 +97,6 @@ func CreateApplication(ctx context.Context, application *models.Application) (st
 	return applicationRepo.Create(ctx, application)
 }
 
-// En services/applicationService.go
 func UpdateApplicationStatus(
     ctx context.Context, 
     userId string,

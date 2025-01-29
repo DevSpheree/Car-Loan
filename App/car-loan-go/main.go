@@ -12,32 +12,26 @@ import (
 
 func main() {
 	
-    // Obtener el puerto desde las variables de entorno
     port := os.Getenv("PORT")
     if port == "" {
-        port = "3000" // Puerto por defecto si no se especifica en el archivo .env
+        port = "3000" 
     }
 	
-	// Inicializar Firebase
 	config.InitFirebase()
 
-	// Inicializar Fiber
 	app := fiber.New()
 
-	// Configurar CORS
 	app.Use(cors.New())
 
-	// Ruta de bienvenida
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendFile("index.html")
 	})
 
-	// Configurar rutas
 	routes.SetupAuthRoutes(app)
 	routes.SetupVehicleRoutes(app)
 	routes.SetupApplicationRoutes(app)
+	routes.SetupReturnRoutes(app)
 
-	// Iniciar servidor
 	log.Println("Servidor iniciado en http://localhost:" + port)
 	log.Fatal(app.Listen(":" + port))
 }

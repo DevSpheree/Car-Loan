@@ -92,3 +92,4 @@ func UpdateApplicationStatus(c *fiber.Ctx) error {
 
     return utils.SendSuccess(c, "Estado actualizado exitosamente", response)
 }
+
