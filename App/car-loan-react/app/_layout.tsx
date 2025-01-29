@@ -15,11 +15,18 @@ import SelectDestination from "@/app/screens/SelectDestination";
 import ConfirmReservation from "@/app/screens/ConfirmReservation";
 import Requests, {RejectReason, RequestDetails} from "@/app/screens/Solicitudes";
 import {useNavigation} from "expo-router";
+import Validation from "@/app/screens/Validation";
+import History from "@/app/screens/History";
+import PhotoCapture from "@/app/screens/PhotoCapture";
+import Checklist from "@/app/screens/Checklist";
+import GenerateReport from "@/app/screens/GenerateReport";
+import {Ionicons} from "@expo/vector-icons";
 
 const Drawer = createDrawerNavigator();
 
 function CustomDrawerContent(props) {
     const [isVehiclesExpanded, setVehiclesExpanded] = useState(false);
+    const [isReturnsExpanded, setReturnsExpanded] = useState(false);
     const [userRole, setUserRole] = useState<string | null>(null);
     let role;
     useEffect(() => {
@@ -49,15 +56,33 @@ function CustomDrawerContent(props) {
 
     return (
         <DrawerContentScrollView {...props}>
+            {/* Sección superior con icono de usuario */}
+
+            <View style={styles.cameraButtonContainer}>
+                <TouchableOpacity style={styles.cameraButton}>
+                    <Ionicons
+                        name="person-circle-outline"
+                        size={60}
+                        color="#004270"
+                    />
+                </TouchableOpacity>
+                <View style={styles.divider} />
+            </View>
             {userRole === 'ADMIN' ? (
                 <>
-                    <DrawerItem label="Inicio" onPress={() => props.navigation.navigate('Dashboard')} />
-                    <DrawerItem label="Solicitudes" onPress={() => props.navigation.navigate('Solicitudes')} />
+
+                    <DrawerItem label="Inicio" onPress={() => props.navigation.navigate('Dashboard')}
+                                icon={() => <Ionicons name="home-outline" size={20} color="#004270" />}/>
+                    <DrawerItem label="Solicitudes" onPress={() => props.navigation.navigate('Solicitudes')}
+                                icon={() => <Ionicons name="list-outline" size={20} color="#004270" />}/>
                     <TouchableOpacity
                         style={styles.categoryButton}
                         onPress={() => setVehiclesExpanded(!isVehiclesExpanded)}
                     >
-                        <Text style={styles.categoryText}>Vehículos</Text>
+                        <View style={styles.iconTextContainer}>
+                            <Ionicons name="car-outline" size={20} color="#004270" style={styles.categoryIcon} />
+                            <Text style={styles.categoryText}>Vehículos</Text>
+                        </View>
                         <Text style={styles.arrow}>{isVehiclesExpanded ? '▲' : '▼'}</Text>
                     </TouchableOpacity>
                     {isVehiclesExpanded && (
@@ -66,19 +91,40 @@ function CustomDrawerContent(props) {
                             <DrawerItem label="Mis Vehiculos" onPress={() => props.navigation.navigate('Mis Vehículos')} />
                         </View>
                     )}
-                    <DrawerItem label="Monitoreo" onPress={() => props.navigation.navigate('Monitoreo')} />
+                    <DrawerItem label="Monitoreo" onPress={() => props.navigation.navigate('Monitoreo')}
+                                icon={() => <Ionicons name="location-outline" size={20} color="#004270" />}/>
+                    {/* Nuevo apartado: Devoluciones */}
+                    <TouchableOpacity
+                        style={styles.categoryButton}
+                        onPress={() => setReturnsExpanded(!isReturnsExpanded)}
+                    >
+                        <View style={styles.iconTextContainer}>
+                            <Ionicons name="time-outline" size={20} color="#004270" style={styles.categoryIcon} />
+                            <Text style={styles.categoryText}>Devoluciones</Text>
+                        </View>
+                        <Text style={styles.arrow}>{isReturnsExpanded ? '▲' : '▼'}</Text>
+                    </TouchableOpacity>
+                    {isReturnsExpanded && (
+                        <View style={styles.submenu}>
+                            <DrawerItem label="Validación" onPress={() => props.navigation.navigate('Validación')} />
+                            <DrawerItem label="Historial" onPress={() => props.navigation.navigate('Historial')} />
+                        </View>
+                    )}
 
                 </>
 
             ) : userRole === 'CLIENT' ? (
                 <>
-                    <DrawerItem label="Principal" onPress={() => props.navigation.navigate('Mis Vehículos')} />
-                    <DrawerItem label="Mis Reservas" onPress={() => props.navigation.navigate('Solicitudes')} />
+                    <DrawerItem label="Principal" onPress={() => props.navigation.navigate('Mis Vehículos')}
+                                icon={() => <Ionicons name="home-outline" size={20} color="#004270" />}/>
+                    <DrawerItem label="Mis Reservas" onPress={() => props.navigation.navigate('Solicitudes')}
+                                icon={() => <Ionicons name="list-outline" size={20} color="#004270" />}/>
                 </>
             ) : null}
             <View style={styles.logoutContainer}>
                 <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
                     <Text style={styles.logoutText}>Cerrar Sesión</Text>
+                    <Ionicons name="log-out-outline" size={20} color="#A52019"  />
                 </TouchableOpacity>
             </View>
         </DrawerContentScrollView>
@@ -216,7 +262,7 @@ export default function Layout() {
                     headerLeft: () => (
                         <TouchableOpacity
                             style={{ marginLeft: 10 }}
-                            onPress={() => navigation.navigate('Dashboard')} // Botón de regreso al Dashboard
+                            onPress={() => navigation.navigate('Mis Vehículos')} // Botón de regreso al Dashboard
                         >
                             <Text style={{ fontSize: 24, color: '#004270' }}>{"<"}</Text>
                         </TouchableOpacity>
@@ -287,6 +333,81 @@ export default function Layout() {
                 })}
             />
 
+            <Drawer.Screen
+                name="Validación"
+                component={Validation} // Reemplaza con tu componente de Validación
+                options={({ navigation }) => ({
+                    headerLeft: () => (
+                        <TouchableOpacity
+                            style={{ marginLeft: 10 }}
+                            onPress={() => navigation.navigate('Dashboard')} // Regreso al Dashboard
+                        >
+                            <Text style={{ fontSize: 24, color: '#004270' }}>{"<"}</Text>
+                        </TouchableOpacity>
+                    ),
+                })}
+            />
+
+            <Drawer.Screen
+                name="Historial"
+                component={History} // Reemplaza con tu componente de Historial
+                options={({ navigation }) => ({
+                    headerLeft: () => (
+                        <TouchableOpacity
+                            style={{ marginLeft: 10 }}
+                            onPress={() => navigation.navigate('Dashboard')} // Regreso al Dashboard
+                        >
+                            <Text style={{ fontSize: 24, color: '#004270' }}>{"<"}</Text>
+                        </TouchableOpacity>
+                    ),
+                })}
+            />
+
+            {/* Nuevas pantallas */}
+            <Drawer.Screen
+                name="Captura de Foto"
+                component={PhotoCapture}
+                options={({ navigation }) => ({
+                    headerLeft: () => (
+                        <TouchableOpacity
+                            style={{ marginLeft: 10 }}
+                            onPress={() => navigation.navigate('Validación')}
+                        >
+                            <Text style={{ fontSize: 24, color: '#004270' }}>{"<"}</Text>
+                        </TouchableOpacity>
+                    ),
+                })}
+            />
+            <Drawer.Screen
+                name="Checklist"
+                component={Checklist}
+                options={({ navigation }) => ({
+                    headerLeft: () => (
+                        <TouchableOpacity
+                            style={{ marginLeft: 10 }}
+                            onPress={() => navigation.navigate('Validación')}
+                        >
+                            <Text style={{ fontSize: 24, color: '#004270' }}>{"<"}</Text>
+                        </TouchableOpacity>
+                    ),
+                })}
+            />
+            <Drawer.Screen
+                name="Generar Informe"
+                component={GenerateReport}
+                options={({ navigation }) => ({
+                    headerLeft: () => (
+                        <TouchableOpacity
+                            style={{ marginLeft: 10 }}
+                            onPress={() => navigation.navigate('Validación')}
+                        >
+                            <Text style={{ fontSize: 24, color: '#004270' }}>{"<"}</Text>
+                        </TouchableOpacity>
+                    ),
+                })}
+            />
+
+
 
         </Drawer.Navigator>
     );
@@ -322,11 +443,61 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         borderRadius: 5,
         alignItems: 'center',
-        marginTop: 400,
+        marginTop: 190,
+        flexDirection: "row",
+        justifyContent: "center",
     },
     logoutText: {
         color: '#A52019',
         fontSize: 16,
         fontWeight: 'medium',
+        marginRight: 10
+    },
+    profileContainer: {
+        alignItems: 'center',
+        paddingVertical: 20,
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        backgroundColor: '#FFF8DC', // Fondo claro para el botón
+        justifyContent: 'center',
+        marginBottom: 20,
+        elevation: 3,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+    },
+    divider: {
+        width: '80%',
+        height: 1,
+        backgroundColor: '#ccc',
+        marginVertical: 10,
+    },
+    cameraButton: {
+        width: 80,
+        height: 80,
+        borderRadius: 50,
+        backgroundColor: '#FFF8DC', // Fondo claro para el botón
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 20,
+        elevation: 3,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+
+    },
+    cameraButtonContainer: {  // Estilos para el contenedor del botón
+        alignItems: 'center', // Centrar horizontalmente
+        marginBottom: 20,
+    },
+    iconTextContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    categoryIcon: {
+        marginRight: 10, // Espacio entre el icono y el texto
     },
 });
