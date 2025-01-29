@@ -10,6 +10,7 @@ import {
     Image,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Ionicons} from "@expo/vector-icons";
 
 const API_URL = 'https://car-loan-go-703279496082.us-east1.run.app/applications';
 
@@ -135,10 +136,11 @@ export function RequestDetails({ route, navigation }) {
 
     return (
         <View style={styles.container}>
-            <Image
-                source='@/assets/images/react-logo.png'
-                style={styles.vehicleImage}
-            />
+            <View style={styles.cameraButtonContainer}>
+                <TouchableOpacity style={styles.cameraButton}>
+                    <Ionicons name="receipt-outline" size={70} color="#004270" />
+                </TouchableOpacity>
+            </View>
             <Text style={styles.title}>Detalles de la Solicitud</Text>
             <Text style={styles.requestDetails}>Vehículo: {request.vehicle_name}</Text>
             <Text style={styles.requestDetails}>Destino: {request.destination}</Text>
@@ -232,10 +234,11 @@ export function RejectReason({ route, navigation }) {
 
     return (
         <View style={styles.container}>
-            <Image
-                source='@/assets/images/react-logo.png'
-                style={styles.vehicleImage}
-            />
+            <View style={styles.cameraButtonContainer}>
+                <TouchableOpacity style={styles.cameraButton}>
+                    <Ionicons name="receipt-outline" size={70} color="#004270" />
+                </TouchableOpacity>
+            </View>
             <Text style={styles.title}>{isCancel ? 'Motivo de cancelación' : 'Motivo de rechazo'}</Text>
 
             <TextInput
@@ -258,13 +261,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        backgroundColor: '#FFF' // Fondo claro y limpio
+        backgroundColor: '#FFF', // Fondo claro y limpio
+
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,
-        color: '#1F2937', // Texto oscuro para buena legibilidad
+        color: '#004270', // Texto oscuro para buena legibilidad
         textAlign: 'center'
     },
     requestCard: {
@@ -277,8 +281,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 4,
         elevation: 3, // Sombra para un efecto de tarjeta flotante
-        width: 340,
-        marginLeft: 5
+        width:'98%',
     },
     vehicleName: {
         fontSize: 18,
@@ -365,5 +368,33 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginTop: 10,
         alignItems: 'center'
+    },
+    iconContainer: {
+        width: 110, // Ancho fijo para el círculo
+        height: 110, // Alto fijo para el círculo
+        borderRadius: 55, // La mitad del ancho/alto para hacerlo círculo
+        backgroundColor: '#FFF8DC', // Color de fondo del círculo (un tono beige claro)
+        justifyContent: 'center', // Centra el icono horizontalmente
+        alignItems: 'center', // Centra el icono verticalmente
+        marginRight: 10, // Espacio entre el círculo y el texto
+    },
+    cameraButton: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        backgroundColor: '#FFF8DC', // Fondo claro para el botón
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 20,
+        elevation: 3,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+
+    },
+    cameraButtonContainer: {  // Estilos para el contenedor del botón
+        alignItems: 'center', // Centrar horizontalmente
+        marginBottom: 20,
     },
 });

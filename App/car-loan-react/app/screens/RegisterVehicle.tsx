@@ -169,7 +169,7 @@ export default function RegisterVehicle() {
                                 style={styles.input}
                                 value={value}
                                 onChangeText={onChange}
-                                placeholder="Ingrese marca y modelo (ej. BLAZER RS AC 3,6 5P 4X4)"
+                                placeholder="Ingrese el modelo"
                             />
                         )}
                     />
@@ -464,13 +464,16 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 14,
         color: "#004270",
+        marginTop: 5
     },
     input: {
+        backgroundColor: '#F3F4F6',
+        padding: 15,
+        borderRadius: 20,
+        marginVertical: 5,
         borderWidth: 1,
-        borderColor: "#CDCDCD",
-        borderRadius: 8,
-        padding: 10,
-        fontSize: 16,
+        borderColor: '#D1D5DB',
+
     },
     imageUpload: {
         alignItems: "center",
@@ -495,8 +498,9 @@ const styles = StyleSheet.create({
     submitButton: {
         backgroundColor: "#004270",
         padding: 15,
-        borderRadius: 8,
+        borderRadius: 15,
         alignItems: "center",
+        marginBottom: 25
     },
     submitButtonText: {
         color: "#FFF",

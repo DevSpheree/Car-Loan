@@ -100,7 +100,7 @@ const LoginScreen = ({ navigation }) => {
                     <View style={styles.container}>
                         <View style={styles.header}>
                             <Text style={styles.welcomeText}>Bienvenido a</Text>
-                            <Image source={require("../../assets/images/checklist1.png")} style={styles.logo1} resizeMode="contain" />
+                            <Text style={styles.loginTitle1}>Car - Loan</Text>
                             <Image source={require("../../assets/images/logo.png")} style={styles.logo} resizeMode="contain" />
                         </View>
                         <View style={styles.loginContainer}>
@@ -171,6 +171,7 @@ const styles = StyleSheet.create({
     errorText: { color: "red", fontSize: 12, alignSelf: "flex-start" },
     loginButton: { backgroundColor: "#004270", paddingVertical: 15, paddingHorizontal: 20, borderRadius: 8, width: "100%", alignItems: "center", marginTop: 50 },
     loginButtonText: { color: "#FFF", fontSize: 16, fontWeight: "bold" },
+    loginTitle1: { fontSize: 36, fontWeight: "bold", color: "#E9B40A", marginTop: 5 },
 });
 
 export default LoginScreen;

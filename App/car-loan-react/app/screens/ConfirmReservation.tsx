@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Ionicons} from "@expo/vector-icons";
 
 export default function ConfirmReservation({ route, navigation }) {
     const { vehicle, pickupDate, pickupTime, returnDate, returnTime, destinationAlias, reason } = route.params; // Incluido el campo 'reason'
@@ -56,6 +57,15 @@ export default function ConfirmReservation({ route, navigation }) {
 
     return (
         <View style={styles.container}>
+            <View style={styles.cameraButtonContainer}>
+                <TouchableOpacity style={styles.cameraButton}>
+                    <Ionicons
+                        name="bookmark-outline"
+                        size={50}
+                        color="#004270"
+                    />
+                </TouchableOpacity>
+            </View>
             <Text style={styles.title}>Detalle</Text>
             <Text style={styles.subtitle}>Por favor revise los datos de la reserva</Text>
 
@@ -82,14 +92,15 @@ export default function ConfirmReservation({ route, navigation }) {
 
 const styles = StyleSheet.create({
     container: { flex: 1, padding: 20, backgroundColor: '#fff' },
-    title: { fontSize: 24, fontWeight: 'bold', marginVertical: 30, textAlign: 'center' },
+    title: { fontSize: 24, fontWeight: 'bold', marginBottom: 30, textAlign: 'center', color: '#004270' },
     subtitle: { fontSize: 16, textAlign: 'center', marginBottom: 20 },
     section: {
         padding: 15,
         borderWidth: 1,
-        borderColor: '#ddd',
+        borderColor: '#57AEF1',
         borderRadius: 8,
         marginBottom: 20,
+        backgroundColor: '#F8F9FB'
     },
     text: { fontSize: 16, marginBottom: 10 },
     confirmButton: {
@@ -99,4 +110,24 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     confirmButtonText: { color: '#fff', textAlign: 'center', fontWeight: 'bold' },
+    cameraButton: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        backgroundColor: '#FFF8DC', // Fondo claro para el botón
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 20,
+        elevation: 3,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        marginTop: 40
+
+    },
+    cameraButtonContainer: {  // Estilos para el contenedor del botón
+        alignItems: 'center', // Centrar horizontalmente
+        marginBottom: 20,
+    },
 });
