@@ -48,18 +48,15 @@ func UploadVehicleImage(c *fiber.Ctx) error {
         return utils.SendError(c, fiber.StatusBadRequest, "El ID del vehiculo es requerido", nil)
     }
 
-    // Obtener archivo
     file, err := c.FormFile("image")
     if err != nil {
         return utils.SendError(c, fiber.StatusBadRequest, "Error obteniendo la imagen", err)
     }
 
-    // Validar tipo de archivo
     if !isValidImageType(file.Header.Get("Content-Type")) {
         return utils.SendError(c, fiber.StatusBadRequest, "Tipo de archivo invalido. Solo se permiten imagenes!", nil)
     }
 
-    // Validar tamaño del archivo (ejemplo: max 5MB)
     if file.Size > 5*1024*1024 {
         return utils.SendError(c, fiber.StatusBadRequest, "El archivo es demasaido grande. Tamaño máximo 5MB", nil)
     }

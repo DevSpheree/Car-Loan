@@ -34,6 +34,14 @@ func CreateReturn(ctx context.Context, ret *models.Return) (string, error) {
 		return "", fmt.Errorf("application ID %s does not exist", ret.ApplicationID)
 	}
 
+	returnIter := client.Collection("returns").Where("application_id", "==", ret.ApplicationID).Documents(ctx)
+	defer returnIter.Stop()
+
+	doc, err := returnIter.Next()
+	if err == nil && doc != nil {
+		return "", fmt.Errorf("a return already exists for application ID: %s", ret.ApplicationID)
+	}
+
 	var application models.Application
 	if err := applicationDoc.DataTo(&application); err != nil {
 		return "", fmt.Errorf("error getting application data: %v", err)
@@ -41,7 +49,7 @@ func CreateReturn(ctx context.Context, ret *models.Return) (string, error) {
 
 	if application.Status != "APROBADA" {
 		return "", fmt.Errorf(
-            "cannot create return: application status must be APROBADA, current status: %s", application.Status)
+			"cannot create return: application status must be APROBADA, current status: %s", application.Status)
 	}
 
 	returnID, err := returnRepo.Create(ctx, ret)
