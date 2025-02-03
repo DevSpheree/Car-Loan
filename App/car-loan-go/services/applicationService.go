@@ -7,6 +7,7 @@ import (
 	"context"
 	"fmt"
 
+	"cloud.google.com/go/firestore"
 	"google.golang.org/api/iterator"
 )
 
@@ -86,6 +87,20 @@ func CreateApplication(ctx context.Context, application *models.Application) (st
 		return "", err
 	}
 
+	applications, err := applicationRepo.GetMyApplications(ctx, application.ClientID)
+	if err != nil {
+		return "", fmt.Errorf("error obteniendo las solicitudes del usuario: %v", err)
+	}
+	for _, app := range applications {
+		if app.Status == "PENDIENTE" {
+			return "", fmt.Errorf("el usuario con ID: %s ya tiene una solicitud pendiente: %s", application.ClientID, app.ID)
+		}
+
+		if app.ReturnStatus == "NO_FINALIZADA" {
+			return "", fmt.Errorf("el usuario con ID: %s ya tiene una solicitud en curso: %s", application.ClientID, app.ID)
+		}
+	}
+
 	userRole, err := getUserRole(ctx, application.ClientID)
 	if err != nil {
 		return "", fmt.Errorf("error validando el rol del usuario: %v", err)
@@ -95,6 +110,44 @@ func CreateApplication(ctx context.Context, application *models.Application) (st
 	}
 
 	return applicationRepo.Create(ctx, application)
+}
+
+func getUserRole(ctx context.Context, userID string) (string, error) {
+	client := config.GetFirestoreClient(ctx)
+	defer client.Close()
+
+	userDoc, err := client.Collection("users").Doc(userID).Get(ctx)
+	if err != nil || !userDoc.Exists() {
+		return "", fmt.Errorf("usuario con ID %s no encontrado", userID)
+	}
+
+	var userData models.User
+	if err := userDoc.DataTo(&userData); err != nil {
+		return "", fmt.Errorf("error obteniendo los datos del usuario: %v", err)
+	}
+
+	return userData.Role, nil
+}
+
+func DeleteApplication(ctx context.Context, id string) error {
+    client := config.GetFirestoreClient(ctx)
+    defer client.Close()
+    
+    _, err := client.Collection("applications").Doc(id).Delete(ctx)
+    return err
+}
+
+func UpdateApplicationPermissionURL(ctx context.Context, id string, url string) error {
+    client := config.GetFirestoreClient(ctx)
+    defer client.Close()
+
+    _, err := client.Collection("applications").Doc(id).Update(ctx, []firestore.Update{
+        {
+            Path:  "permission_file_url",
+            Value: url,
+        },
+    })
+    return err
 }
 
 func UpdateApplicationStatus(
@@ -152,21 +205,4 @@ func UpdateApplicationStatus(
     }
 
     return fmt.Errorf("operación no permitida para el rol %s", userRole)
-}
-
-func getUserRole(ctx context.Context, userID string) (string, error) {
-	client := config.GetFirestoreClient(ctx)
-	defer client.Close()
-
-	userDoc, err := client.Collection("users").Doc(userID).Get(ctx)
-	if err != nil || !userDoc.Exists() {
-		return "", fmt.Errorf("usuario con ID %s no encontrado", userID)
-	}
-
-	var userData models.User
-	if err := userDoc.DataTo(&userData); err != nil {
-		return "", fmt.Errorf("error obteniendo los datos del usuario: %v", err)
-	}
-
-	return userData.Role, nil
 }

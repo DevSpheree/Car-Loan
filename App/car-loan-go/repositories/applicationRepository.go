@@ -93,11 +93,17 @@ func (r *ApplicationRepository) UpdateStatus(ctx context.Context, id string, sta
         updates = append(updates, firestore.Update{
             Path:  "rejection_reason",
             Value: reason,
+        }, firestore.Update{
+            Path:  "return_status",
+            Value: "FINALIZADA",
         })
     case "CANCELADA":
         updates = append(updates, firestore.Update{
             Path:  "cancel_reason",
             Value: reason,
+        }, firestore.Update{
+            Path:  "return_status",
+            Value: "FINALIZADA",
         })
     }
 

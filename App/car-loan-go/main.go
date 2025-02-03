@@ -31,6 +31,7 @@ func main() {
 	routes.SetupVehicleRoutes(app)
 	routes.SetupApplicationRoutes(app)
 	routes.SetupReturnRoutes(app)
+	routes.SetupDriverRoutes(app)
 
 	log.Println("Servidor iniciado en http://localhost:" + port)
 	log.Fatal(app.Listen(":" + port))
