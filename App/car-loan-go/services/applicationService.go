@@ -83,8 +83,15 @@ func CreateApplication(ctx context.Context, application *models.Application) (st
 		return "", err
 	}
 
-	if err := validateVehicleExists(ctx, application.VehicleID); err != nil {
+	if err := vehicleRepo.Exists(ctx, application.VehicleID); err != nil {
 		return "", err
+	}
+
+
+	if application.DriverID != "" {
+		if err := driverRepo.Exists(ctx, application.DriverID); err != nil {
+			return "", err
+		}
 	}
 
 	applications, err := applicationRepo.GetMyApplications(ctx, application.ClientID)

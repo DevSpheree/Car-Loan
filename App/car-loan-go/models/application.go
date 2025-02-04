@@ -5,9 +5,10 @@ import "time"
 type Application struct {
     ID               string    `json:"id" firestore:"-" form:"-"`
     VehicleID        string    `json:"vehicle_id" firestore:"vehicle_id" form:"vehicle_id" validate:"required"`
-    VehicleName      string    `json:"vehicle_name" firestore:"-" form:"-"`
     AdminID          string    `json:"admin_id" firestore:"admin_id" form:"admin_id"`
     ClientID         string    `json:"client_id" firestore:"client_id" form:"client_id" validate:"required"`
+    DriverID         string    `json:"driver_id" firestore:"driver_id" form:"driver_id" validate:"max=150"`
+    VehicleName      string    `json:"vehicle_name" firestore:"-" form:"-"`
     Client           *User     `json:"client" firestore:"-" form:"-"`
     Date             time.Time `json:"date" firestore:"date" form:"date" validate:"required"`
     Reason           string    `json:"reason" firestore:"reason" form:"reason" validate:"required,min=2,max=150"`
