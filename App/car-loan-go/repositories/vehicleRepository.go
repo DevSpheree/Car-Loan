@@ -4,6 +4,7 @@ import (
 	"car-loan-go/config"
 	"car-loan-go/models"
 	"context"
+	"fmt"
 
 	"cloud.google.com/go/firestore"
 	"google.golang.org/api/iterator"
@@ -57,4 +58,16 @@ func (r *VehicleRepository) Create(ctx context.Context, vehicle *models.Vehicle)
         return "", err
     }
     return doc.ID, nil
+}
+
+func (r *VehicleRepository) Exists(ctx context.Context, vehicleID string) error {
+	client := config.GetFirestoreClient(ctx)
+	defer client.Close()
+
+	doc, err := client.Collection("vehicles").Doc(vehicleID).Get(ctx)
+	if err != nil || !doc.Exists() {
+        return fmt.Errorf("vehicle with ID %s not found", vehicleID)
+    }
+
+	return nil
 }

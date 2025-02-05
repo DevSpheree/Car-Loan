@@ -27,17 +27,6 @@ func CreateVehicle(ctx context.Context, vehicle *models.Vehicle) (string, error)
     return vehicleRepo.Create(ctx, vehicle)
 }
 
-func validateVehicleExists(ctx context.Context, vehicleID string) error {
-    client := config.GetFirestoreClient(ctx)
-    defer client.Close()
-
-    vehicleDoc, err := client.Collection("vehicles").Doc(vehicleID).Get(ctx)
-    if err != nil || !vehicleDoc.Exists() {
-        return fmt.Errorf("vehicle with ID %s not found", vehicleID)
-    }
-    return nil
-}
-
 func UpdateVehicleImage(ctx context.Context, vehicleID string, file *multipart.FileHeader) error {
     client := config.GetFirestoreClient(ctx)
     defer client.Close()

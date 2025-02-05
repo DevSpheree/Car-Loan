@@ -11,4 +11,5 @@ func SetupApplicationRoutes(app *fiber.App) {
 	application.Get("/", handlers.GetMyApplications)
 	application.Post("/", handlers.CreateApplication)
 	application.Patch("/status", handlers.UpdateApplicationStatus) 
+	application.Put("/:id", handlers.UpdateApplication)
 }

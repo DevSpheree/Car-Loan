@@ -4,6 +4,7 @@ import (
 	"car-loan-go/config"
 	"car-loan-go/models"
 	"context"
+	"fmt"
 
 	"google.golang.org/api/iterator"
 )
@@ -35,4 +36,16 @@ func (r *DriverRepository) GetAll(ctx context.Context) ([]models.Driver, error) 
 	}
 
 	return drivers, nil
+}
+
+func (r *DriverRepository) Exists(ctx context.Context, driverID string) error {
+	client := config.GetFirestoreClient(ctx)
+	defer client.Close()
+
+	doc, err := client.Collection("drivers").Doc(driverID).Get(ctx)
+	if err != nil || !doc.Exists() {
+        return fmt.Errorf("driver with ID %s not found", driverID)
+    }
+
+	return nil
 }
