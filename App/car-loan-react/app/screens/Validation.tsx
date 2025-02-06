@@ -12,7 +12,7 @@ export default function Validation({ navigation }) {
                 const response = await fetch(`https://car-loan-go-703279496082.us-east1.run.app/applications?user_id=${userId}`);
                 const data = await response.json();
                 if (data.success) {
-                    const pendingReturns = data.data.filter((item) => item.return_status === 'NO_FINALIZADA' && item.status === 'APROBADA');
+                    const pendingReturns = data.data.filter((item) => item.return_status === 'NO_FINALIZADA'  && item.status === 'APROBADA' );
                     setRequests(pendingReturns);
                 }
             } catch (error) {

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, FlatList, TouchableOpacity, Image } from 'react-native';
+import useUpdateVehicleList from "@/app/services/updateVehicleList";
 
 export default function MyVehicles({ navigation }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [vehicles, setVehicles] = useState([]);
     const [filteredVehicles, setFilteredVehicles] = useState([]);
+    const {updateVehicleList} = useUpdateVehicleList();
 
     // Función para consumir la API
     const fetchVehicles = async () => {
@@ -24,7 +26,7 @@ export default function MyVehicles({ navigation }) {
 
     useEffect(() => {
         fetchVehicles();
-    }, []);
+    }, [updateVehicleList]);
 
     // Función para filtrar vehículos
     const handleSearch = (query) => {
@@ -43,13 +45,12 @@ export default function MyVehicles({ navigation }) {
         <View style={styles.vehicleItem}>
             {/* Imagen del vehículo */}
             <Image
-                source={{ uri: item.img_url || 'https://via.placeholder.com/100' }} // Imagen genérica
+                source={{ uri: item.img_url || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-_Q04if8V8D3_si9dRkfhuqXAOooal8mYXg&s' }} // Imagen genérica
                 style={styles.vehicleImage}
             />
             <View style={styles.vehicleInfo}>
                 <Text style={styles.vehicleTitle}>{`${item.brand} ${item.brand_year}`}</Text>
                 <Text style={styles.vehicleDetail}>Placa: {item.vehicle_plate || 'N/A'}</Text>
-                <Text style={styles.vehicleDetail}>Responsable: {item.responsible || 'N/A'}</Text>
                 <Text style={styles.vehicleDetail}>Tipo: {item.type || 'N/A'}</Text>
                 <Text style={styles.vehicleDetail}>Ubicación: {item.activity_location || 'N/A'}</Text>
             </View>

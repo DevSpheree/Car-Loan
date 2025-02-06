@@ -12,15 +12,15 @@ export default function Dashboard() {
             <View style={styles.summaryContainer}>
                 <View style={styles.card}>
                     <Text style={styles.cardTitle}>Vehículos Disponibles</Text>
-                    <Text style={styles.cardValue}>80</Text>
+                    <Text style={styles.cardValue}>32</Text>
                 </View>
                 <View style={styles.card}>
                     <Text style={styles.cardTitle}>Vehículos Ocupados</Text>
-                    <Text style={styles.cardValue}>30</Text>
+                    <Text style={styles.cardValue}>5</Text>
                 </View>
                 <View style={styles.card}>
                     <Text style={styles.cardTitle}>Solicitudes Receptadas</Text>
-                    <Text style={styles.cardValue}>120</Text>
+                    <Text style={styles.cardValue}>16</Text>
                 </View>
             </View>
 
@@ -39,9 +39,9 @@ export default function Dashboard() {
                 width={screenWidth - 32}
                 height={220}
                 chartConfig={{
-                    backgroundColor: "#fff",
+                    backgroundColor: "#f5f5f5",
                     backgroundGradientFrom: "#fff",
-                    backgroundGradientTo: "#fff",
+                    backgroundGradientTo: "#f5f5f5",
                     decimalPlaces: 0,
                     color: (opacity = 1) => `rgba(0, 66, 112, ${opacity})`,
                     labelColor: (opacity = 1) => `rgba(0, 66, 112, ${opacity})`,
@@ -107,7 +107,7 @@ export default function Dashboard() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#F5F5F5",
+        backgroundColor: "#FFF",
         padding: 16,
     },
     summaryContainer: {
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     },
     card: {
         flex: 1,
-        backgroundColor: "#FFF",
+        backgroundColor: "#F5F5F5",
         borderRadius: 8,
         padding: 16,
         marginHorizontal: 4,

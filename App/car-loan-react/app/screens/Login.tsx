@@ -20,6 +20,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "@/firebaseConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import useAuthStore from "@/app/services/authStore";
 
 const loginSchema = yup.object({
     email: yup.string().required("El email es requerido").email("Ingrese un email válido"),
@@ -41,7 +42,8 @@ const LoginScreen = ({ navigation }) => {
         },
         resolver: yupResolver(loginSchema),
     });
-    const [userRole, setUserRole] = useState<string | null>(null);
+
+    const {userRole,setUserRole} = useAuthStore()
 
     useEffect(() => {
         const checkUserStatus = async () => {

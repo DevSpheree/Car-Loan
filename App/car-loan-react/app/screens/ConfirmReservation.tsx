@@ -3,57 +3,78 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Ionicons} from "@expo/vector-icons";
 
+
 export default function ConfirmReservation({ route, navigation }) {
-    const { vehicle, pickupDate, pickupTime, returnDate, returnTime, destinationAlias, reason } = route.params; // Incluido el campo 'reason'
+    const { vehicle, pickupDate, pickupTime, returnDate, returnTime, destinationAlias, reason, permissionFile, driverId } = route.params; // Incluido el campo 'reason'
 
     const handleConfirm = async () => {
         try {
-            const clientId = await AsyncStorage.getItem('uid');
+            const clientId = await AsyncStorage.getItem("uid");
             if (!clientId) {
-                Alert.alert('Error', 'No se encontró el ID del cliente. Inicia sesión nuevamente.');
+                Alert.alert("Error", "No se encontró el ID del cliente. Inicia sesión nuevamente.");
                 return;
             }
 
-            const fullPickupDate = new Date(`${pickupDate}T${pickupTime}:00`);
-            const fullReturnDate = new Date(`${returnDate}T${returnTime}:00`);
-            const usageTime = Math.round((fullReturnDate - fullPickupDate) / (1000 * 60 * 60));
+            console.log("🚀 Enviando reserva con archivo:", permissionFile);
 
-            const reservationData = {
-                vehicle_id: vehicle.id,
-                client_id: clientId,
-                date: fullPickupDate.toISOString(),
-                destination: destinationAlias,
-                reason, // Se incluye el motivo en la reserva
-                return_date: fullReturnDate.toISOString(),
-                return_status: 'NO_FINALIZADA',
-                status: 'PENDIENTE',
-                usage_time: usageTime,
-            };
+            if (!permissionFile) {
+                Alert.alert("Error", "Por favor, selecciona un archivo antes de continuar.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("vehicle_id", vehicle.id);
+            formData.append("client_id", clientId);
+            formData.append("date", new Date(`${pickupDate}T${pickupTime}:00`).toISOString());
+            formData.append("destination", destinationAlias);
+            formData.append("reason", reason);
+            formData.append("return_date", new Date(`${returnDate}T${returnTime}:00`).toISOString());
+            formData.append("return_status", "NO_FINALIZADA");
+            formData.append("status", "PENDIENTE");
+            formData.append("usage_time", Math.round((new Date(`${returnDate}T${returnTime}:00`) - new Date(`${pickupDate}T${pickupTime}:00`)) / (1000 * 60 * 60)));
+            formData.append("driver_id", driverId || "");
+            // Adjuntar el archivo correctamente
+            if (!permissionFile.uri || !permissionFile.name || !permissionFile.mimeType) {
+                console.error("❌ El archivo no tiene los valores correctos:", permissionFile);
+                Alert.alert("Error", "El archivo seleccionado no es válido.");
+                return;
+            }
+
+            formData.append("permission_file", {
+                uri: permissionFile.uri,
+                name: permissionFile.name || "document.pdf",
+                type: permissionFile.mimeType || "application/pdf",
+            });
+
+
+
 
             const response = await fetch(
-                'https://car-loan-go-703279496082.us-east1.run.app/applications',
+                "https://car-loan-go-703279496082.us-east1.run.app/applications",
                 {
-                    method: 'POST',
+                    method: "POST",
                     headers: {
-                        'Content-Type': 'application/json',
+                        "Content-Type": "multipart/form-data",
                     },
-                    body: JSON.stringify(reservationData),
+                    body: formData,
                 }
             );
 
             if (response.ok) {
-                Alert.alert('Éxito', 'Reserva confirmada exitosamente.');
-                navigation.navigate('Mis Vehiculos'); // Navegar a "Mis Vehículos"
+                Alert.alert("Éxito", "Reserva confirmada exitosamente.");
+                navigation.navigate("Mis Vehículos");
             } else {
                 const errorText = await response.text();
-                console.error('Error al reservar:', errorText);
-                Alert.alert('Error', 'Ocurrió un error al realizar la reserva.');
+
+                console.error("Error al reservar:", errorText);
+                Alert.alert("Error", "Ocurrió un error al realizar la reserva.");
             }
         } catch (error) {
-            console.error('Error de red:', error);
-            Alert.alert('Error', 'Ocurrió un error de red al realizar la reserva.');
+            console.error("Error de red:", error);
+            Alert.alert("Error", "Ocurrió un error de red al realizar la reserva.");
         }
     };
+
 
     return (
         <View style={styles.container}>

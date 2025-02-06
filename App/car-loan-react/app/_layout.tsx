@@ -21,32 +21,33 @@ import PhotoCapture from "@/app/screens/PhotoCapture";
 import Checklist from "@/app/screens/Checklist";
 import GenerateReport from "@/app/screens/GenerateReport";
 import {Ionicons} from "@expo/vector-icons";
+import useAuthStore from "@/app/services/authStore";
 
 const Drawer = createDrawerNavigator();
 
 function CustomDrawerContent(props) {
     const [isVehiclesExpanded, setVehiclesExpanded] = useState(false);
     const [isReturnsExpanded, setReturnsExpanded] = useState(false);
-    const [userRole, setUserRole] = useState<string | null>(null);
-    let role;
+    const { userRole, setUserRole, clearUserRole } = useAuthStore();
     useEffect(() => {
         const fetchRole = async () => {
             try {
-                 role = await AsyncStorage.getItem('role');
-                setUserRole(role);
+                setUserRole(await AsyncStorage.getItem('role'));
             } catch (error) {
                 console.error('Error obteniendo el rol del usuario:', error);
                 setUserRole(null);
             }
         };
         fetchRole();
-    }, []);
+    }, [userRole]);
 
     const handleLogout = async () => {
         try {
+
             await AsyncStorage.removeItem('idToken');
             await AsyncStorage.removeItem('uid');
             await AsyncStorage.removeItem('role');
+            clearUserRole();
             Alert.alert('Sesión cerrada', 'Has cerrado sesión correctamente.');
             props.navigation.navigate('Login');
         } catch (error) {

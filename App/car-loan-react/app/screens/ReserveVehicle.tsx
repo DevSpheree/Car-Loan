@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     View,
     Text,
@@ -6,12 +6,20 @@ import {
     StyleSheet,
     Alert,
     TextInput,
-    Platform, ScrollView, Modal,
+    Platform, ScrollView, Modal, ActivityIndicator,
 } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {Ionicons} from "@expo/vector-icons";
 import MapView, {Marker} from "react-native-maps";
+import * as DocumentPicker from 'expo-document-picker';
+import { DocumentPickerAsset } from 'expo-document-picker';
+import DropDownPicker from 'react-native-dropdown-picker';
+
+
+const [permissionFile, setPermissionFile] = useState<DocumentPickerAsset | null>(null);
+
+
 
 export default function ReserveVehicle({ route, navigation }) {
     const { vehicle } = route.params;
@@ -29,6 +37,43 @@ export default function ReserveVehicle({ route, navigation }) {
     const [mapModalVisible, setMapModalVisible] = useState(false);
     const [selectedLocation, setSelectedLocation] = useState(null);
 
+    // Estado para almacenar el archivo seleccionado
+    const [permissionFile, setPermissionFile] = useState<DocumentPicker.DocumentPickerAsset | null>(null);
+
+    // Estados para el Dropdown Picker
+    const [drivers, setDrivers] = useState([]);
+    const [selectedDriver, setSelectedDriver] = useState(null);
+    const [open, setOpen] = useState(false);
+    const [loadingDrivers, setLoadingDrivers] = useState(true);
+
+    // Cargar conductores desde la API
+    useEffect(() => {
+        const fetchDrivers = async () => {
+            try {
+                const response = await fetch("https://car-loan-go-703279496082.us-east1.run.app/drivers");
+                const data = await response.json();
+
+                if (data.success && Array.isArray(data.data)) {
+                    // Mapear los conductores para usarlos en el dropdown
+                    const formattedDrivers = data.data.map(driver => ({
+                        label: `${driver.name} ${driver.last_name}`,
+                        value: driver.id
+                    }));
+                    setDrivers(formattedDrivers);
+                } else {
+                    Alert.alert("Error", "No se pudieron cargar los conductores.");
+                }
+            } catch (error) {
+                console.error("Error al obtener conductores:", error);
+                Alert.alert("Error", "No se pudieron cargar los conductores.");
+            } finally {
+                setLoadingDrivers(false);
+            }
+        };
+
+        fetchDrivers();
+    }, []);
+
     const handleTimeChange = (event, selectedTime) => {
         setShowTimePicker(false);
         if (!selectedTime) return;
@@ -40,6 +85,32 @@ export default function ReserveVehicle({ route, navigation }) {
         if (timePickerType === 'pickup') setPickupTime(formattedTime);
         if (timePickerType === 'return') setReturnTime(formattedTime);
     };
+
+    // Función para seleccionar un archivo
+    const pickDocument = async () => {
+        try {
+            const result = await DocumentPicker.getDocumentAsync({
+                type: '*/*',
+                copyToCacheDirectory: true,
+            });
+
+            if (result.canceled || !result.assets || result.assets.length === 0) {
+                Alert.alert("Error", "No seleccionaste ningún archivo.");
+                return;
+            }
+
+            const file = result.assets[0]; // Obtener el archivo seleccionado
+            console.log("📂 Archivo seleccionado:", file); // 👈 Agrega este log
+            setPermissionFile(file);
+        } catch (error) {
+            console.error("Error al seleccionar documento:", error);
+            Alert.alert("Error", "No se pudo seleccionar el archivo.");
+        }
+    };
+
+
+
+
 
     const handleReserve = () => {
         if (!pickupDate || !returnDate) {
@@ -65,7 +136,12 @@ export default function ReserveVehicle({ route, navigation }) {
             returnTime,
             destinationAlias,
             reason, // Enviando el campo a la siguiente pantalla
+            permissionFile,
+            driverId: selectedDriver, // Pasar el ID del conductor seleccionado
+
         });
+        console.log("Archivo seleccionado:", permissionFile);
+
     };
 
     return (
@@ -83,6 +159,35 @@ export default function ReserveVehicle({ route, navigation }) {
                 <Text style={styles.title}>
                     Reservar {vehicle.brand} {vehicle.brand_year}
                 </Text>
+
+                {/* Dropdown Picker para seleccionar conductor */}
+                <Text style={styles.label}>Conductor (Opcional)</Text>
+                {loadingDrivers ? (
+                    <ActivityIndicator size="small" color="#004270" />
+                ) : (
+                    <DropDownPicker
+                        open={open}
+                        value={selectedDriver}
+                        items={drivers}
+                        setOpen={setOpen}
+                        setValue={setSelectedDriver}
+                        setItems={setDrivers}
+                        placeholder="Selecciona un conductor"
+                        style={styles.dropdown}
+                        dropDownContainerStyle={styles.dropdownContainer}
+                    />
+                )}
+
+                <View style={styles.inputWithButton}>
+
+                    <Text style={styles.text}>
+                        {permissionFile ? permissionFile.name : 'Seleccionar archivo'}
+                    </Text>
+                    <TouchableOpacity style={styles.destinationButton1} onPress={pickDocument}>
+                        <Ionicons name="document-outline" size={20} color="#004270" />
+                    </TouchableOpacity>
+                </View>
+
 
                 {/* Alias del destino con botón al lado */}
                 <View style={styles.inputWithButton}>
@@ -280,8 +385,24 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         marginLeft: 10,
     },
+    destinationButton1: {
+        padding: 10,
+        backgroundColor: '#E9B40A',
+        borderRadius: 15,
+        marginLeft: 100,
+    },
     modalContainer: { flex: 1 },
     map: { flex: 1 },
     closeButton: { backgroundColor: '#004270', padding: 15, alignItems: 'center', },
     closeButtonText: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
+    label: { fontSize: 16, color: '#004270', marginBottom: 5 },
+    dropdown: {
+        backgroundColor: "#F3F4F6",
+        borderColor: "#D1D5DB",
+        marginBottom: 10,
+    },
+    dropdownContainer: {
+        backgroundColor: "#FFF",
+        borderColor: "#D1D5DB",
+    },
 });
