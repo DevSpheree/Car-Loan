@@ -11,12 +11,18 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Ionicons} from "@expo/vector-icons";
+import DropDownPicker from 'react-native-dropdown-picker';
+
 
 const API_URL = 'https://car-loan-go-703279496082.us-east1.run.app/applications';
+const VEHICLES_API = 'https://car-loan-go-703279496082.us-east1.run.app/vehicles';
+
 
 export default function Requests({ navigation }) {
     const [requests, setRequests] = useState([]);
     const [loading, setLoading] = useState(true);
+
+
 
     useEffect(() => {
         fetchRequests();
@@ -38,7 +44,14 @@ export default function Requests({ navigation }) {
 
             const result = await response.json();
             if (result.success && Array.isArray(result.data)) {
-                setRequests(result.data);
+                // Ordenar: primero las pendientes, luego el resto
+                const sortedRequests = result.data.sort((a, b) => {
+                    if (a.status === 'PENDIENTE' && b.status !== 'PENDIENTE') return -1;
+                    if (a.status !== 'PENDIENTE' && b.status === 'PENDIENTE') return 1;
+                    return 0;
+                });
+
+                setRequests(sortedRequests);
             } else {
                 setRequests([]);
                 console.warn('No hay solicitudes disponibles para este usuario.');
@@ -50,6 +63,7 @@ export default function Requests({ navigation }) {
             setLoading(false);
         }
     };
+
 
     const handleStatusPress = (request) => {
         if (request.status === 'PENDIENTE') {
@@ -106,12 +120,17 @@ export default function Requests({ navigation }) {
 export function RequestDetails({ route, navigation }) {
     const { request, onUpdate } = route.params;
     const [role, setRole] = useState('');
+    const [vehicles, setVehicles] = useState([]);
+    const [selectedVehicle, setSelectedVehicle] = useState(null);
+    const [openDropdown, setOpenDropdown] = useState(false);
+
 
     useEffect(() => {
         (async () => {
             const storedRole = await AsyncStorage.getItem('role');
             setRole(storedRole || '');
         })();
+        fetchVehicles();
     }, []);
 
     const handleCancel = () => {
@@ -130,9 +149,95 @@ export function RequestDetails({ route, navigation }) {
         });
     };
 
-    const handleBack = () => {
-        navigation.navigate('Solicitudes');
+    const handleBack = async () => {
+        try {
+            const userId = await AsyncStorage.getItem('uid');
+            if (!userId) {
+                Alert.alert('Error', 'No se pudo obtener el usuario.');
+                return;
+            }
+
+            const params = new URLSearchParams({
+                application_id: request.id,
+                user_id: userId,
+            });
+
+            const body = { status: 'APROBADA' };
+
+            const response = await fetch(`${API_URL}/status?${params.toString()}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body),
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                Alert.alert('Éxito', 'La solicitud ha sido aprobada.');
+                onUpdate();  // Recargar la lista de solicitudes
+                navigation.navigate('Solicitudes'); // Volver a la lista
+            } else {
+                Alert.alert('Error', `No se pudo aprobar la solicitud: ${result.message || 'Error desconocido'}`);
+            }
+        } catch (error) {
+            console.error('Error al aprobar la solicitud:', error);
+            Alert.alert('Error', 'No se pudo aprobar la solicitud.');
+        }
     };
+
+    // Obtener lista de vehículos
+    const fetchVehicles = async () => {
+        try {
+            const response = await fetch(VEHICLES_API);
+            const result = await response.json();
+            if (result.success) {
+                const formattedVehicles = result.data.map(vehicle => ({
+                    label: `${vehicle.brand} ${vehicle.brand_year}`,
+                    value: vehicle.id
+                }));
+                setVehicles(formattedVehicles);
+            } else {
+                Alert.alert('Error', 'No se pudieron cargar los vehículos.');
+            }
+        } catch (error) {
+            console.error('Error al obtener vehículos:', error);
+            Alert.alert('Error', 'No se pudieron obtener los vehículos.');
+        }
+    };
+
+    // Asignar un nuevo vehículo a la solicitud
+    const assignVehicle = async () => {
+        if (!selectedVehicle) {
+            Alert.alert('Error', 'Selecciona un vehículo antes de asignarlo.');
+            return;
+        }
+
+        try {
+            const userId = await AsyncStorage.getItem('uid');
+            if (!userId) {
+                Alert.alert('Error', 'No se pudo obtener el usuario.');
+                return;
+            }
+
+            const response = await fetch(`${API_URL}/${request.id}?user_id=${userId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ vehicle_id: selectedVehicle, status:"APROBADA" })
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                Alert.alert('Éxito', 'Vehículo asignado correctamente.');
+                onUpdate();
+                navigation.goBack();
+            } else {
+                Alert.alert('Error', `No se pudo asignar el vehículo: ${result.message || 'Error desconocido'}`);
+            }
+        } catch (error) {
+            console.error('Error al asignar vehículo:', error);
+            Alert.alert('Error', 'No se pudo asignar el vehículo.');
+        }
+    };
+
 
     return (
         <View style={styles.container}>
@@ -159,6 +264,8 @@ export function RequestDetails({ route, navigation }) {
                             <Text style={styles.buttonText}>Confirmar</Text>
                         </TouchableOpacity>
                     </>
+
+
                 ) : (
                     <>
                         <TouchableOpacity style={styles.rejectButton} onPress={handleCancel}>
@@ -170,6 +277,25 @@ export function RequestDetails({ route, navigation }) {
                     </>
                 )}
             </View>
+            {/* Dropdown y botón de asignación (solo para ADMIN) */}
+            {role === 'ADMIN' && (
+                <View style={styles.assignContainer}>
+                    <DropDownPicker
+                        open={openDropdown}
+                        value={selectedVehicle}
+                        items={vehicles}
+                        setOpen={setOpenDropdown}
+                        setValue={setSelectedVehicle}
+                        setItems={setVehicles}
+                        placeholder="Selecciona un vehículo"
+                        style={styles.dropdown}
+                    />
+                    <TouchableOpacity style={styles.assignButton} onPress={assignVehicle}>
+                        <Text style={styles.buttonText}>Asignar Vehículo</Text>
+                    </TouchableOpacity>
+                </View>
+            )}
+
         </View>
     );
 }
@@ -396,5 +522,21 @@ const styles = StyleSheet.create({
     cameraButtonContainer: {  // Estilos para el contenedor del botón
         alignItems: 'center', // Centrar horizontalmente
         marginBottom: 20,
+    },
+    assignButton: {
+        backgroundColor: '#004270',
+        paddingVertical: 15,
+        paddingHorizontal: 20,
+        borderRadius: 20,
+        alignItems: 'center',
+        marginTop: 20
+    },
+    dropdown: {
+        marginTop: 20,
+        backgroundColor: '#F3F4F6',
+        borderColor: '#D1D5DB'
+    },
+    assignContainer: {
+        marginTop: 20
     },
 });

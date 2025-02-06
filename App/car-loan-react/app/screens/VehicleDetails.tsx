@@ -39,7 +39,7 @@ export default function VehicleDetails({ route, navigation }) {
         <View style={styles.container}>
             {/* Imagen genérica */}
             <Image
-                source={{ uri: vehicle.img_url || 'https://acroadtrip.blob.core.windows.net/catalogo-imagenes/xl/RT_V_253bb2bf37834fcc94aab18693c17252.webp' }}
+                source={{ uri: vehicle.img_url || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-_Q04if8V8D3_si9dRkfhuqXAOooal8mYXg&s' }}
                 style={styles.vehicleImage}
             />
 
@@ -49,7 +49,7 @@ export default function VehicleDetails({ route, navigation }) {
             {/* Detalles */}
             <View style={styles.detailsContainer}>
                 <Text style={styles.detailText}>Placa: {vehicle.vehicle_plate}</Text>
-                <Text style={styles.detailText}>Responsable: {vehicle.responsible}</Text>
+                <Text style={styles.detailText}>Número del Vehículo: {vehicle.num}</Text>
                 <Text style={styles.detailText}>Tipo: {vehicle.type}</Text>
                 <Text style={styles.detailText}>Ubicación: {vehicle.activity_location}</Text>
                 <Text style={styles.detailText}>Año: {vehicle.year}</Text>

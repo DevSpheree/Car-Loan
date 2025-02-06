@@ -35,7 +35,7 @@ export default function Monitoring({ navigation }) {
 
     const renderVehicle = ({ item }) => (
         <View style={styles.vehicleContainer}>
-            <Image source={require('../../assets/images/checklist1.png')} style={styles.vehicleImage} />
+            <Image source={require('../../assets/images/car.jpg')} style={styles.vehicleImage} />
             <View style={styles.vehicleDetails}>
                 <Text style={styles.vehicleName}>{item.brand} {item.brand_year}</Text>
                 <Text style={styles.vehicleInfo}>Placa: {item.vehicle_plate}</Text>
